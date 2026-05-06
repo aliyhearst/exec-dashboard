@@ -1,0 +1,2232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Weekly Executive Project <span className="accent">Update</span></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAFA;
+  --bg-2: #F5F5F5;
+  --panel: #FFFFFF;
+  --ink: #0A0A0A;
+  --ink-2: #262626;
+  --ink-3: #525252;
+  --muted: #737373;
+  --muted-2: #A3A3A3;
+  --line: #EDEDED;
+  --line-2: #F4F4F4;
+  --line-3: #E5E5E5;
+  --accent: #0A0A0A;
+  --accent-ink: #0A0A0A;
+  --green: #16A34A;
+  --green-soft: #F0FDF4;
+  --green-ink: #15803D;
+  --amber: #D97706;
+  --amber-soft: #FFFBEB;
+  --amber-ink: #B45309;
+  --red: #DC2626;
+  --red-soft: #FEF2F2;
+  --red-ink: #B91C1C;
+  --shadow-sm: 0 1px 2px rgba(10,10,10,0.04);
+  --shadow-md: 0 1px 2px rgba(10,10,10,0.04), 0 1px 1px rgba(10,10,10,0.02);
+  --shadow-lg: 0 24px 56px rgba(10,10,10,0.12), 0 4px 12px rgba(10,10,10,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-feature-settings: 'ss01','cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14.5px;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.mono { font-family: 'Geist Mono', ui-monospace, Menlo, monospace; font-feature-settings: 'ss01'; letter-spacing: -0.01em; }
+.serif { font-family: 'Instrument Serif', 'Iowan Old Style', Georgia, serif; letter-spacing: 0; }
+
+button { font-family: inherit; cursor: pointer; }
+
+/* ---------- Shell ---------- */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(250,250,250,0.82);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner { max-width: 1440px; margin: 0 auto; padding: 14px 48px;
+  display: flex; align-items: center; gap: 16px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 500; letter-spacing: -0.015em;
+}
+.brand-mark {
+  width: 20px; height: 20px; border-radius: 6px;
+  background: #0A0A0A;
+  display: inline-block; position: relative;
+}
+.brand-mark::after {
+  content: ''; position: absolute; inset: auto auto 4px 4px; width: 5px; height: 5px;
+  background: #FAFAFA; border-radius: 50%;
+}
+.brand-name { font-size: 14px; color: var(--ink); }
+.brand-sep { color: var(--muted-2); font-weight: 300; }
+.brand-sub { font-size: 14px; color: var(--muted); font-weight: 400; }
+.top-spacer { flex: 1; }
+.top-meta { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.top-meta .mono { color: var(--ink-2); font-size: 12.5px; }
+.top-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted-2); }
+
+/* ---------- Page ---------- */
+.page { max-width: 1440px; margin: 0 auto; padding: 56px 48px 96px; width: 100%; }
+
+.page-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 44px;
+}
+.eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+h1.title {
+  font-family: 'Geist', sans-serif;
+  font-size: 40px;
+  letter-spacing: -0.032em;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.05;
+  color: var(--ink);
+}
+h1.title .accent {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.subtitle {
+  color: var(--muted); font-size: 15px; margin-top: 12px;
+  letter-spacing: -0.005em;
+}
+
+.head-actions {
+  display: flex; gap: 6px; align-items: center;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line-3);
+  background: var(--panel);
+  color: var(--ink-2);
+  font-size: 13.5px; font-weight: 500;
+  transition: all .12s ease;
+  letter-spacing: -0.005em;
+  height: 34px;
+}
+.btn:hover { border-color: #D4D4D4; background: #FAFAFA; color: var(--ink); }
+.btn.primary {
+  background: var(--ink); color: #FAFAFA; border-color: var(--ink);
+}
+.btn.primary:hover { background: #262626; border-color: #262626; color: #FFF; }
+.btn.ghost { border-color: transparent; background: transparent; box-shadow: none; color: var(--muted); }
+.btn.ghost:hover { color: var(--ink); background: rgba(10,10,10,0.04); }
+.btn.sm { padding: 5px 10px; font-size: 13px; border-radius: 7px; height: 28px; }
+.btn-icon { width: 13px; height: 13px; display: inline-block; flex: 0 0 auto; }
+
+.segmented {
+  display: inline-flex; background: var(--panel); border: 1px solid var(--line-3);
+  border-radius: 8px; padding: 3px; height: 34px;
+}
+.segmented button {
+  border: 0; background: transparent; padding: 0 11px; font-size: 13px;
+  color: var(--muted); border-radius: 5px; font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: all .12s;
+  height: 26px;
+}
+.segmented button.on { background: var(--ink); color: #FAFAFA; }
+.segmented button:not(.on):hover { color: var(--ink); }
+
+.select {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 0 10px; font-size: 13px; color: var(--ink-2);
+  border: 1px solid var(--line-3); background: var(--panel); border-radius: 8px;
+  height: 34px;
+}
+.select select {
+  border: 0; background: transparent; color: var(--ink-2);
+  font-family: inherit; font-size: 13px; outline: none;
+  appearance: none; padding-right: 14px; cursor: pointer;
+  letter-spacing: -0.005em;
+}
+.select-caret { color: var(--muted-2); font-size: 10px; }
+
+/* ---------- Exec summary ---------- */
+.summary { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-sm); padding: 28px 32px; display: grid; grid-template-columns: 260px 1fr; gap: 40px; margin-bottom: 40px; position: relative; max-width: 1200px; }
+.summary-head { display: flex; align-items: center; gap: 10px; }
+.summary-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.summary-badge .dot {
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green); margin-right: 7px; vertical-align: middle;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.summary-title {
+  font-size: 18px; font-weight: 500; letter-spacing: -0.02em;
+  margin-top: 14px; color: var(--ink);
+}
+.summary-meta {
+  font-size: 13px; color: var(--muted); margin-top: 4px;
+}
+.health-ring {
+  margin-top: 28px;
+  display: flex; align-items: center; gap: 20px;
+}
+.donut { width: 88px; height: 88px; }
+.donut circle { fill: none; stroke-width: 8; }
+.donut .track { stroke: var(--line-2); }
+.health-legend {
+  display: flex; flex-direction: column; gap: 8px; font-size: 13px;
+}
+.health-legend .row { display: flex; align-items: center; gap: 9px; }
+.health-legend .dot { width: 7px; height: 7px; border-radius: 50%; }
+.health-legend .count {
+  font-variant-numeric: tabular-nums; color: var(--ink);
+  font-weight: 500; width: 14px; text-align: right;
+  font-family: 'Geist Mono', monospace; font-size: 12.5px;
+}
+.health-legend .label { color: var(--muted); }
+
+.summary-bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 32px;
+  align-content: start;
+  padding-left: 40px;
+  border-left: 1px solid var(--line);
+}
+.sum-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 14px; color: var(--ink-2);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+.sum-item .marker {
+  flex: 0 0 auto; margin-top: 7px;
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.sum-item.positive .marker { background: var(--green); }
+.sum-item.negative .marker { background: var(--red); }
+.sum-item.neutral .marker { background: var(--muted-2); }
+
+/* ---------- Toolbar ---------- */
+.toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; gap: 16px; flex-wrap: wrap;
+}
+.toolbar-left { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.toolbar-right { display: flex; gap: 10px; align-items: center; }
+.toolbar-label { font-size: 13px; color: var(--muted); letter-spacing: -0.005em; }
+
+/* ---------- Grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.grid.compact { grid-template-columns: repeat(4, 1fr); }
+
+/* ---------- Project card ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 26px 22px;
+  display: flex; flex-direction: column;
+  gap: 20px;
+  transition: border-color .15s ease, transform .15s ease;
+  position: relative;
+}
+.card:hover { border-color: var(--line-3); }
+
+.card.compact {
+  padding: 18px 20px 16px;
+  gap: 14px;
+  border-radius: 12px;
+}
+.card.compact .proj-title { font-size: 15px; }
+.card.compact .proj-sections { grid-template-columns: 1fr; gap: 12px; }
+
+.card-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 12px;
+}
+.proj-title {
+  font-size: 18px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  line-height: 1.25;
+}
+.change-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  padding: 3px 7px; border-radius: 5px; font-weight: 500;
+  letter-spacing: 0;
+  border: 1px solid transparent;
+  text-transform: none;
+}
+.change-badge.worse {
+  background: var(--red-soft); color: var(--red-ink); border-color: #FECACA;
+}
+.change-badge.better {
+  background: var(--green-soft); color: var(--green-ink); border-color: #BBF7D0;
+}
+.change-badge svg { width: 9px; height: 9px; }
+
+.meta-row {
+  margin-top: 6px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--muted);
+  letter-spacing: -0.005em;
+}
+.meta-row .dot-sep { color: var(--muted-2); font-weight: 300; }
+.meta-row .owner { color: var(--ink-2); font-weight: 500; }
+.meta-row .team { color: var(--muted); }
+.meta-row .mono { font-size: 12.5px; }
+
+.status {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500;
+  padding: 4px 10px 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line-3);
+  background: var(--panel);
+  color: var(--ink-2);
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+}
+.status .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  position: relative;
+}
+.status.green .pulse { background: var(--green); box-shadow: 0 0 0 2.5px rgba(22,163,74,0.15); }
+.status.yellow .pulse { background: var(--amber); box-shadow: 0 0 0 2.5px rgba(217,119,6,0.18); }
+.status.red .pulse { background: var(--red); box-shadow: 0 0 0 2.5px rgba(220,38,38,0.18); animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 2.5px rgba(220,38,38,0.18); }
+  50% { box-shadow: 0 0 0 5px rgba(220,38,38,0.08); }
+}
+
+.proj-sections {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px 28px;
+}
+.section-block h4 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+  display: flex; align-items: center; gap: 6px;
+}
+.section-block h4 .count {
+  color: var(--muted-2); font-weight: 400;
+}
+.section-block.risks { grid-column: 1 / -1; }
+
+.bullets { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.bullets li {
+  font-size: 14px; color: var(--ink-2);
+  display: flex; gap: 10px; align-items: flex-start;
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+.bullets li::before {
+  content: ''; flex: 0 0 auto; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--muted-2); margin-top: 9px;
+}
+.bullets.next li::before { background: var(--ink); }
+.bullets.risks li {
+  background: var(--amber-soft);
+  border: 1px solid #FDE68A;
+  padding: 8px 12px 8px 30px;
+  border-radius: 8px;
+  color: var(--amber-ink);
+  position: relative;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.bullets.risks li::before { display: none; }
+.bullets.risks li .warn {
+  position: absolute; left: 10px; top: 10px;
+  width: 13px; height: 13px; color: var(--amber);
+}
+.card.status-red .bullets.risks li {
+  background: var(--red-soft); border-color: #FECACA; color: var(--red-ink);
+}
+.card.status-red .bullets.risks li .warn { color: var(--red); }
+
+/* ---------- Metrics panel ---------- */
+.metrics-toggle {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-2);
+}
+.metrics-toggle .btn { color: var(--muted); }
+.metrics-toggle .btn:hover { color: var(--ink); }
+.updated-tag { font-size: 12px; color: var(--muted-2); font-family: 'Geist Mono', monospace; letter-spacing: 0; }
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .32s ease, margin-top .2s, padding-top .2s;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid transparent;
+}
+.metrics.open {
+  max-height: 260px;
+  margin-top: 4px;
+  padding: 2px;
+  border-color: var(--line-2);
+}
+.metric {
+  padding: 16px 18px 14px;
+  border-right: 1px solid var(--line-2);
+}
+.metric:last-child { border-right: 0; }
+.metric-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px;
+  font-weight: 500;
+}
+.metric-value {
+  font-size: 24px; letter-spacing: -0.03em; font-weight: 500; color: var(--ink);
+  display: flex; align-items: baseline; gap: 10px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.metric-delta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 3px;
+  letter-spacing: 0;
+}
+.metric-delta.up { color: var(--green-ink); }
+.metric-delta.down { color: var(--red-ink); }
+.metric-delta.flat { color: var(--muted); }
+.metric-delta svg { width: 9px; height: 9px; }
+
+/* ---------- More projects ---------- */
+.more-wrap {
+  margin-top: 48px;
+}
+.more-head {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+}
+.more-head h2 {
+  font-size: 16px; font-weight: 500; letter-spacing: -0.015em; margin: 0; color: var(--ink);
+}
+.more-head .mono { font-size: 12px; color: var(--muted); letter-spacing: 0; }
+.more-head .rule { flex: 1; height: 1px; background: var(--line); }
+
+.empty {
+  text-align: center; padding: 48px; color: var(--muted);
+  border: 1px dashed var(--line-3); border-radius: 12px;
+  background: var(--panel);
+  font-size: 14px;
+}
+
+.view-all-wrap {
+  margin-top: 32px; text-align: center;
+}
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(10,10,10,0.32);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 80px 24px 24px;
+  overflow-y: auto;
+  animation: fade .15s ease;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  background: var(--panel);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 100%; max-width: 620px;
+  padding: 32px;
+  animation: rise .2s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid var(--line);
+}
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.modal h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -0.022em; font-weight: 500; }
+.modal p.muted { color: var(--muted); font-size: 14px; margin: 0 0 24px; line-height: 1.5; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field.full { grid-column: 1 / -1; }
+.form-field label {
+  font-size: 12px; color: var(--muted);
+  font-family: 'Geist Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.form-field input, .form-field textarea, .form-field select {
+  font-family: inherit; font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-3); border-radius: 8px;
+  background: var(--panel); color: var(--ink);
+  resize: vertical;
+  outline: none;
+  transition: border-color .12s, box-shadow .12s;
+  letter-spacing: -0.005em;
+}
+.form-field input:focus, .form-field textarea:focus, .form-field select:focus {
+  border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,10,0.06);
+}
+.form-field textarea { min-height: 72px; }
+
+.status-picker { display: flex; gap: 8px; }
+.status-picker label {
+  flex: 1; cursor: pointer; user-select: none;
+  padding: 10px 12px; border: 1px solid var(--line-3); border-radius: 8px;
+  background: var(--panel); color: var(--ink-2); font-size: 13.5px;
+  display: flex; align-items: center; gap: 8px;
+  text-transform: none; letter-spacing: -0.005em; font-family: inherit;
+  font-weight: 500;
+  transition: all .12s;
+}
+.status-picker input { display: none; }
+.status-picker label.sel-green { border-color: var(--green); background: var(--green-soft); color: var(--green-ink); }
+.status-picker label.sel-yellow { border-color: var(--amber); background: var(--amber-soft); color: var(--amber-ink); }
+.status-picker label.sel-red { border-color: var(--red); background: var(--red-soft); color: var(--red-ink); }
+.swatch { width: 8px; height: 8px; border-radius: 50%; display: inline-block; transition: transform .15s; }
+
+.form-actions {
+  margin-top: 24px; display: flex; justify-content: flex-end; gap: 8px;
+}
+
+/* ---------- Tweaks ---------- */
+.tweaks {
+  position: fixed; bottom: 24px; right: 24px;
+  z-index: 40;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  padding: 16px 18px;
+  width: 260px;
+  font-size: 13.5px;
+}
+.tweaks h5 {
+  margin: 0 0 10px 0;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  font-weight: 500;
+}
+.tweak-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0;
+}
+.tweak-row span { color: var(--ink-2); letter-spacing: -0.005em; }
+.toggle {
+  width: 30px; height: 18px; background: var(--line-3);
+  border-radius: 20px; position: relative; cursor: pointer;
+  border: none;
+  transition: background .2s;
+}
+.toggle.on { background: var(--ink); }
+.toggle::after {
+  content: ''; position: absolute; top: 2px; left: 2px;
+  width: 14px; height: 14px; background: white; border-radius: 50%;
+  transition: left .2s;
+}
+.toggle.on::after { left: 14px; }
+
+/* ---------- History banner ---------- */
+.history-banner {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  background: #FEFBF0;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  font-size: 13.5px; color: #92400E;
+  margin-bottom: 20px;
+}
+.history-banner .mono { color: #78350F; font-weight: 500; font-size: 12.5px; }
+.history-banner button { margin-left: auto; }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: #FAFAFA;
+  padding: 11px 18px; border-radius: 10px; font-size: 13.5px;
+  box-shadow: var(--shadow-lg);
+  z-index: 60;
+  animation: toastIn .2s ease;
+  letter-spacing: -0.005em;
+}
+@keyframes toastIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ---------- Print / export snapshot ---------- */
+@media print {
+  .topbar, .tweaks, .toolbar, .metrics-toggle, .head-actions, .view-all-wrap { display: none !important; }
+  .page { padding: 20px; max-width: none; }
+  .card { break-inside: avoid; box-shadow: none; border-color: #CCC; }
+  .metrics { max-height: none !important; padding: 2px; border-color: var(--line-2); }
+  body { background: white; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .grid, .grid.compact { grid-template-columns: 1fr 1fr; }
+  .summary { grid-template-columns: 1fr; }
+  .summary-bullets { grid-template-columns: 1fr; padding-left: 0; border-left: 0; padding-top: 24px; border-top: 1px solid var(--line); }
+  .proj-sections { grid-template-columns: 1fr; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .grid, .grid.compact { grid-template-columns: 1fr; }
+  .page-head { flex-direction: column; align-items: flex-start; }
+  .page { padding: 32px 20px 64px; }
+  h1.title { font-size: 30px; }
+}
+
+
+/* ---------- List / Table view ---------- */
+.view-switch {
+  display: inline-flex; background: var(--panel); border: 1px solid var(--line-3);
+  border-radius: 8px; padding: 3px; height: 34px;
+}
+.view-switch button {
+  border: 0; background: transparent; padding: 0 10px; font-size: 13px;
+  color: var(--muted); border-radius: 5px; font-weight: 500;
+  height: 26px; display: inline-flex; align-items: center; gap: 6px;
+  letter-spacing: -0.005em;
+}
+.view-switch button.on { background: var(--ink); color: #FAFAFA; }
+.view-switch button:not(.on):hover { color: var(--ink); }
+.view-switch svg { width: 13px; height: 13px; }
+
+.search-wrap {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--panel); border: 1px solid var(--line-3);
+  border-radius: 10px; padding: 0 14px;
+  height: 42px; flex: 1; min-width: 280px;
+  transition: border-color .12s, box-shadow .12s;
+}
+.search-wrap:focus-within { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,10,0.05); }
+.search-wrap svg { width: 15px; height: 15px; color: var(--muted); flex: 0 0 auto; }
+.search-wrap input {
+  flex: 1; border: 0; outline: 0; background: transparent;
+  font-family: inherit; font-size: 14px; color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.search-wrap input::placeholder { color: var(--muted-2); }
+.search-wrap kbd {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  color: var(--muted); background: var(--bg-2);
+  padding: 2px 6px; border-radius: 4px;
+  border: 1px solid var(--line-3);
+}
+.search-clear {
+  border: 0; background: transparent; color: var(--muted); padding: 4px;
+  border-radius: 4px; display: inline-flex;
+}
+.search-clear:hover { color: var(--ink); background: var(--line-2); }
+
+.toolbar-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; max-width: 1200px; }
+.toolbar-row.filters { justify-content: space-between; }
+
+/* Table */
+.table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; max-width: 1200px; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed; }
+.table thead th {
+  text-align: left;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  white-space: nowrap;
+}
+.table thead th.sortable { cursor: pointer; user-select: none; }
+.table thead th.sortable:hover { color: var(--ink); }
+.table thead th .sort-ind { margin-left: 4px; font-size: 9px; }
+.table tbody tr.row {
+  transition: background .12s;
+  cursor: pointer;
+}
+.table tbody tr.row:hover { background: #FAFAFA; }
+.table tbody tr.row.expanded { background: var(--bg); }
+.table td { padding: 14px 16px; border-bottom: 1px solid var(--line-2); vertical-align: middle; letter-spacing: -0.005em; overflow: hidden; }
+.table tbody tr:last-child td { border-bottom: 0; }
+.table td.col-name { font-weight: 500; color: var(--ink); overflow: hidden; white-space: nowrap; }
+.td-name-inner { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.star-btn {
+  border: 0; background: transparent; padding: 0; cursor: pointer;
+  color: var(--muted-2); display: inline-flex; line-height: 0;
+  width: 16px; height: 16px; flex: 0 0 auto;
+}
+.star-btn:hover { color: var(--amber); }
+.star-btn.on { color: var(--amber); }
+.star-btn svg { width: 14px; height: 14px; }
+.caret {
+  width: 14px; height: 14px; color: var(--muted-2); flex: 0 0 auto;
+  transition: transform .18s ease;
+}
+.caret.open { transform: rotate(90deg); color: var(--ink); }
+.col-name { width: 31%; min-width: 220px; } .col-status { width: 102px; } 
+.col-owner { width: 112px; color: var(--ink-2); }
+.col-team { width: 92px; color: var(--muted); }
+.col-updated { width: 74px; color: var(--muted); font-family: 'Geist Mono', monospace; font-size: 12.5px; }
+.col-focus { color: var(--ink-2); width: auto; }
+.focus-cell {
+  display: flex; align-items: center; gap: 8px;
+  overflow: hidden;
+}
+.focus-cell .label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px;
+  flex: 0 0 auto;
+  font-weight: 500;
+}
+.focus-cell .label.risk { background: var(--red-soft); color: var(--red-ink); border: 1px solid #FECACA; }
+.focus-cell .label.atrisk { background: var(--amber-soft); color: var(--amber-ink); border: 1px solid #FDE68A; }
+.focus-cell .label.win { background: var(--green-soft); color: var(--green-ink); border: 1px solid #BBF7D0; }
+.focus-cell .label.next { background: var(--bg); color: var(--ink-2); border: 1px solid var(--line-3); }
+.focus-cell .text { color: var(--ink-2); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+.focus-cell .text em { font-style: normal; background: #FEF3C7; padding: 0 2px; border-radius: 2px; color: var(--ink); }
+
+/* Inline expansion */
+tr.expansion > td {
+  padding: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.exp-inner {
+  padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+  animation: expand .22s ease;
+}
+@keyframes expand { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.exp-col h4 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  margin: 0 0 10px 0; font-weight: 500;
+}
+.exp-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 14px;
+  grid-column: 1 / -1;
+}
+.exp-metrics .metric { border-right: 1px solid var(--line-2); }
+.exp-metrics .metric:last-child { border-right: 0; }
+.exp-risks {
+  background: var(--amber-soft);
+  border: 1px solid #FDE68A;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--amber-ink);
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.exp-risks strong {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.05em;
+  text-transform: uppercase; display: block; margin-bottom: 4px; font-weight: 500;
+}
+.exp-risks ul { margin: 0; padding-left: 18px; }
+.exp-risks li { margin-bottom: 2px; }
+
+/* Empty search state */
+.search-empty {
+  text-align: center; padding: 64px 24px;
+  color: var(--muted); font-size: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.search-empty .mono { color: var(--ink); font-size: 13px; display: block; margin-bottom: 6px; }
+
+/* Section headers in list */
+.list-section { display: flex; align-items: center; gap: 12px; margin: 32px 0 14px 2px; max-width: 1200px; }
+.list-section:first-child { margin-top: 0; }
+.list-section h3 {
+  font-size: 13px; font-weight: 500; letter-spacing: -0.005em; margin: 0; color: var(--ink-2);
+}
+.list-section .mono {
+  font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--muted);
+  padding: 2px 7px; border-radius: 4px; background: var(--bg-2);
+}
+.list-section .rule { flex: 1; height: 1px; background: var(--line); }
+
+/* Tighten name cell badge */
+.td-name-inner .change-badge { display: none; }
+.td-name-inner .change-badge svg { width: 8px; height: 8px; }
+.td-name-inner .change-badge .from, .td-name-inner .change-badge .arrow { display: none; }
+.col-focus .focus-cell { flex-wrap: nowrap; align-items: flex-start; } .col-focus .focus-cell .label { margin-top: 1px; }
+.col-focus .focus-cell .text { min-width: 0; flex: 1; }
+
+.table td.col-owner { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+
+
+
+/* Teams channel chip (row quick-open) */
+.chan-btn { border: 0; background: transparent; padding: 3px 6px; cursor: pointer; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; border-radius: 5px; font-family: 'Geist Mono', monospace; font-size: 11.5px; letter-spacing: 0; position: relative; line-height: 1; white-space: nowrap; flex: 0 0 auto; transition: all .12s; }
+.chan-btn:hover { color: var(--ink); background: var(--line-2); }
+.chan-btn svg { width: 13px; height: 13px; flex: 0 0 auto; }
+.chan-btn .unread-dot {
+  position: absolute; top: 3px; right: 3px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: oklch(0.6 0.18 258);
+  border: 1.5px solid var(--panel);
+}
+.card-head .chan-btn { padding: 4px 8px; font-size: 12px; color: var(--ink-2); border: 1px solid var(--line-3); background: var(--panel); }
+.card-head .chan-btn:hover { border-color: var(--line-3); background: var(--bg); }
+
+/* Connected section in expansion */
+.exp-connected {
+  grid-column: 1 / -1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-top: 4px;
+}
+.exp-connected .label {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500; margin-right: 4px;
+}
+.conn-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 10px; border-radius: 7px;
+  border: 1px solid var(--line-3); background: var(--bg);
+  color: var(--ink-2); font-size: 13px; cursor: pointer;
+  font-weight: 500; letter-spacing: -0.005em;
+  transition: all .12s;
+  text-decoration: none;
+}
+.conn-chip:hover { border-color: #D4D4D4; background: var(--panel); color: var(--ink); }
+.conn-chip svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--muted); }
+.conn-chip.primary { background: oklch(0.96 0.02 258); border-color: oklch(0.88 0.04 258); color: oklch(0.32 0.08 258); }
+.conn-chip.primary svg { color: oklch(0.5 0.14 258); }
+.conn-chip .count { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); padding: 1px 5px; background: var(--panel); border-radius: 3px; border: 1px solid var(--line-3); }
+.conn-chip .mono { font-family: 'Geist Mono', monospace; font-size: 12px; }
+.conn-chip .activity { color: var(--muted); font-family: 'Geist Mono', monospace; font-size: 11px; }
+.exp-connected .connect-hint { color: var(--muted-2); font-size: 12.5px; margin-left: auto; }
+.exp-connected .connect-hint kbd { font-family: 'Geist Mono', monospace; font-size: 11px; padding: 1px 5px; background: var(--panel); border: 1px solid var(--line-3); border-radius: 3px; color: var(--muted); }
+
+
+.list-view-bound { max-width: 1200px; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.modal-wide { max-width: 680px; }
+
+.mode-tabs {
+  display: flex; align-items: center; gap: 4px;
+  background: var(--bg);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+.mode-tab {
+  border: 0; background: transparent;
+  padding: 7px 12px; font-size: 13.5px;
+  color: var(--muted); font-weight: 500;
+  border-radius: 7px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  letter-spacing: -0.005em;
+  transition: all .12s;
+}
+.mode-tab:hover { color: var(--ink); }
+.mode-tab.on { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(10,10,10,0.06); }
+.mode-tab svg { width: 13px; height: 13px; }
+
+.parse-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--ink-2);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0;
+  border-radius: 999px;
+  border: 1px solid var(--line-3);
+  background: var(--panel);
+}
+.parse-badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+
+.paste-pane { display: flex; flex-direction: column; }
+.paste-textarea {
+  width: 100%;
+  font-family: inherit; font-size: 14.5px; line-height: 1.55;
+  padding: 14px 16px;
+  border: 1px solid var(--line-3); border-radius: 10px;
+  background: var(--panel); color: var(--ink);
+  resize: vertical;
+  outline: none;
+  min-height: 160px;
+  letter-spacing: -0.005em;
+  transition: border-color .12s, box-shadow .12s;
+}
+.paste-textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(10,10,10,0.06); }
+.paste-textarea::placeholder { color: var(--muted-2); }
+
+.paste-examples {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 12px; flex-wrap: wrap;
+}
+.paste-examples .label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500;
+}
+.example-btn {
+  border: 1px solid var(--line-3); background: var(--panel);
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 12.5px; color: var(--ink-2);
+  cursor: pointer; font-family: inherit;
+  letter-spacing: -0.005em;
+  transition: all .12s;
+}
+.example-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+.parse-error {
+  margin-top: 16px; padding: 10px 14px;
+  background: var(--red-soft); border: 1px solid #FECACA;
+  color: var(--red-ink); border-radius: 8px; font-size: 13.5px;
+}
+.parse-notes {
+  margin-top: 12px; padding: 10px 14px;
+  background: var(--amber-soft); border: 1px solid #FDE68A;
+  color: var(--amber-ink); border-radius: 8px; font-size: 13px;
+  line-height: 1.5;
+}
+.parse-notes strong {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;
+  margin-right: 6px;
+}
+
+.parse-summary {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: oklch(0.96 0.02 258); border: 1px solid oklch(0.88 0.04 258);
+  border-radius: 8px; font-size: 13.5px;
+  color: oklch(0.32 0.08 258);
+  margin-bottom: 18px;
+}
+.parse-summary svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.parse-summary .btn { margin-left: auto; flex: 0 0 auto; }
+
+.field-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px; font-weight: 500;
+  margin-left: 6px;
+}
+.field-tag.ok { background: var(--green-soft); color: var(--green-ink); border: 1px solid #BBF7D0; }
+
+/* Share button on project cards */
+.share-btn {
+  border: 1px solid var(--line-3) !important;
+  background: var(--panel) !important;
+  color: var(--muted) !important;
+  padding: 5px 10px !important;
+  height: 28px !important;
+  transition: all .15s ease;
+}
+.share-btn:hover {
+  color: var(--ink) !important;
+  border-color: #D4D4D4 !important;
+  background: #FAFAFA !important;
+}
+.share-btn .share-label { display: inline; }
+.card.compact .share-btn .share-label { display: none; }
+.card.compact .share-btn { padding: 5px 8px !important; }
+
+/* Expanded row share action */
+.exp-actions {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.exp-actions-hint {
+  font-size: 12.5px; color: var(--muted); letter-spacing: -0.005em;
+  max-width: 520px; line-height: 1.5;
+}
+
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+// Executive Dashboard — project data
+window.PROJECTS = [
+  {
+    id: 'platform-migration', focus: "Latency down 41%", channel: 'platform-migration', unread: 12, lastActivity: '#14c', connectors: [{"type":"linear","label":"PLAT","count":34},{"type":"doc","label":"Migration plan"}],
+    name: 'Platform Migration',
+    owner: 'Priya Natarajan',
+    team: 'Infrastructure',
+    updated: 'Apr 18',
+    status: 'green',
+    prevStatus: 'yellow',
+    featured: true,
+    current: [
+      'Core services cut over to new orchestration layer',
+      'Zero-downtime migration validated in staging',
+      'P95 latency down 41% vs. legacy cluster',
+    ],
+    next: [
+      'Decommission legacy app servers by EOQ',
+      'Roll out observability playbooks to on-call',
+      'Publish internal migration retrospective',
+    ],
+    risks: [
+      'Two downstream consumers still on deprecated SDK',
+    ],
+    metrics: [
+      { label: 'P95 latency', value: '118ms', delta: -41, unit: '%', good: 'down' },
+      { label: 'Services migrated', value: '47 / 52', delta: +6, unit: ' this wk' },
+      { label: 'Infra cost / mo', value: '$182K', delta: -12, unit: '%', good: 'down' },
+      { label: 'Error rate', value: '0.04%', delta: -0.02, unit: 'pp', good: 'down' },
+    ],
+  },
+  {
+    id: 'mobile-launch', focus: "Vendor SDK missed QA", channel: 'mobile-app-launch', unread: 47, lastActivity: '2m', connectors: [{"type":"linear","label":"MOB","count":89},{"type":"github","label":"acme/mobile"},{"type":"doc","label":"Launch runbook"}],
+    name: 'Mobile App Launch',
+    owner: 'Marcus Chen',
+    team: 'Product',
+    updated: 'Apr 19',
+    status: 'red',
+    prevStatus: 'yellow',
+    featured: true,
+    current: [
+      'iOS build in TestFlight with 240 internal testers',
+      'Android build blocked on Play Console review',
+      'Launch brand campaign creative locked',
+    ],
+    next: [
+      'Escalate Play Console review via partner contact',
+      'Rehearse launch-day war room on Thursday',
+      'Finalize pricing page copy with Legal',
+    ],
+    risks: [
+      'Vendor SDK for payments missed QA deadline',
+      'Android review SLA creating 2-week slip risk',
+      'Hiring for mobile platform lead still open',
+    ],
+    metrics: [
+      { label: 'Days to launch', value: '18', delta: +5, unit: ' days', good: 'down' },
+      { label: 'Crash-free sessions', value: '99.1%', delta: +0.4, unit: 'pp' },
+      { label: 'TestFlight sign-ups', value: '240', delta: +86 },
+      { label: 'Open P0 bugs', value: '3', delta: +1, good: 'down' },
+    ],
+  },
+  {
+    id: 'revenue-dashboard', focus: "Week ahead of plan", channel: 'revenue-dashboard', unread: 6, lastActivity: '1h', connectors: [{"type":"linear","label":"REV","count":12},{"type":"doc","label":"Data dictionary"}],
+    name: 'Revenue Dashboard',
+    owner: 'Alex Whitfield',
+    team: 'Data Platform',
+    updated: 'Apr 21',
+    status: 'green',
+    prevStatus: 'green',
+    featured: true,
+    current: [
+      'Finance + RevOps onboarded to v2 dashboard',
+      'Real-time pipeline ingesting 14 sources',
+      'Rollout tracking one week ahead of plan',
+    ],
+    next: [
+      'Open GA access to all sales leadership',
+      'Ship cohort-level retention view',
+      'Begin consolidation of legacy BI reports',
+    ],
+    risks: [
+      'Spreadsheet-based forecasts still in parallel use',
+    ],
+    metrics: [
+      { label: 'Weekly active users', value: '312', delta: +28, unit: '%' },
+      { label: 'Queries / day', value: '4.8K', delta: +17, unit: '%' },
+      { label: 'Data freshness', value: '4 min', delta: -60, unit: '%', good: 'down' },
+      { label: 'NPS (internal)', value: '62', delta: +11 },
+    ],
+  },
+  {
+    id: 'ai-assist', focus: "Inference cost over budget", channel: 'ai-assist-rollout', unread: 23, lastActivity: '18m', connectors: [{"type":"linear","label":"AI","count":56},{"type":"github","label":"acme/ai-assist"}],
+    name: 'AI Assist Rollout',
+    owner: 'Dana Osei',
+    team: 'Applied AI',
+    updated: 'Apr 20',
+    status: 'yellow',
+    prevStatus: 'green',
+    featured: true,
+    current: [
+      'Closed beta with 14 enterprise accounts',
+      'Avg deflection on Tier-1 tickets up to 38%',
+      'Model eval harness shipped to prod',
+    ],
+    next: [
+      'Expand beta to 40 accounts next week',
+      'Publish trust & safety review to board',
+      'Prototype admin controls for tenant policies',
+    ],
+    risks: [
+      'Inference cost 22% above budget at current scale',
+      'Two design-partner escalations pending resolution',
+    ],
+    metrics: [
+      { label: 'Ticket deflection', value: '38%', delta: +9, unit: 'pp' },
+      { label: 'Beta accounts', value: '14', delta: +4 },
+      { label: 'Cost / conversation', value: '$0.31', delta: +22, unit: '%', good: 'down' },
+      { label: 'CSAT', value: '4.6', delta: +0.2 },
+    ],
+  },
+  {
+    id: 'billing-v3', focus: "Usage-based plans live", channel: 'billing-v3', unread: 3, lastActivity: '4h', connectors: [{"type":"linear","label":"BILL","count":18}],
+    name: 'Billing v3',
+    owner: 'Rafael Ortiz',
+    team: 'Platform',
+    updated: 'Apr 17',
+    status: 'green',
+    prevStatus: 'green',
+    featured: false,
+    current: [
+      'Usage-based plans live for 6 tenants',
+      'Dunning workflow automated end-to-end',
+    ],
+    next: ['Migrate remaining 40 tenants', 'Deprecate legacy invoicing cron'],
+    risks: ['Edge case on mid-cycle plan changes'],
+    metrics: [
+      { label: 'Tenants migrated', value: '6 / 46', delta: +6 },
+      { label: 'Failed charges', value: '0.8%', delta: -0.3, unit: 'pp', good: 'down' },
+    ],
+  },
+  {
+    id: 'trust-center', focus: "Auditor availability slipping", channel: 'security-trust', unread: 2, lastActivity: '1d', connectors: [{"type":"doc","label":"SOC2 audit tracker"}],
+    name: 'Trust Center',
+    owner: 'Jules Park',
+    team: 'Security',
+    updated: 'Apr 15',
+    status: 'yellow',
+    prevStatus: 'yellow',
+    featured: false,
+    current: ['SOC2 Type II audit in fieldwork', 'Public status page redesign in review'],
+    next: ['Close remaining 4 audit findings', 'Launch trust.acme.co'],
+    risks: ['Auditor availability slipping timeline by ~10 days'],
+    metrics: [
+      { label: 'Audit findings open', value: '4', delta: -3, good: 'down' },
+      { label: 'Pen-test issues', value: '0 critical', delta: 0 },
+    ],
+  },
+  {
+    id: 'partner-api', focus: "12 design partners live", channel: 'partner-api-ga', unread: 8, lastActivity: '3h', connectors: [{"type":"linear","label":"API","count":22},{"type":"github","label":"acme/partner-sdk"},{"type":"doc","label":"Public docs draft"}],
+    name: 'Partner API GA',
+    owner: 'Hiroshi Tanaka',
+    team: 'Platform',
+    updated: 'Apr 18',
+    status: 'green',
+    prevStatus: 'yellow',
+    featured: false,
+    current: ['12 design partners in private preview', 'SDKs shipped for TS, Python, Go'],
+    next: ['Publish public docs site', 'Announce at summit keynote'],
+    risks: ['Rate-limit policy still under review with Legal'],
+    metrics: [
+      { label: 'Partners live', value: '12', delta: +3 },
+      { label: 'API calls / day', value: '2.1M', delta: +40, unit: '%' },
+    ],
+  },
+  {
+    id: 'workspace-redesign', focus: "Eng bandwidth pulled away", channel: 'workspace-redesign', unread: 5, lastActivity: '2d', connectors: [{"type":"linear","label":"DES","count":41},{"type":"doc","label":"IA research"}],
+    name: 'Workspace Redesign',
+    owner: 'Nadia Ellington',
+    team: 'Design',
+    updated: 'Apr 14',
+    status: 'red',
+    prevStatus: 'red',
+    featured: false,
+    current: ['Phase 1 pattern library in production', 'Research on IA complete'],
+    next: ['Kick off nav restructure', 'Align with Mobile team on shared tokens'],
+    risks: ['Engineering bandwidth pulled into Mobile Launch', 'Scope creep from Sales requests'],
+    metrics: [
+      { label: 'Components shipped', value: '34 / 82', delta: +2 },
+      { label: 'Eng capacity', value: '40%', delta: -20, unit: 'pp', good: 'down' },
+    ],
+  },
+];
+
+window.EXEC_SUMMARY = {
+  counts: { green: 4, yellow: 2, red: 2 },
+  bullets: [
+    { tone: 'positive', text: 'Platform Migration hit a major milestone — 47 of 52 services now on the new orchestration layer, with P95 latency down 41%.' },
+    { tone: 'positive', text: 'Revenue Dashboard rollout is tracking a full week ahead of plan; Finance and RevOps are fully onboarded.' },
+    { tone: 'negative', text: 'Mobile App Launch slipped from At Risk to Off Track — an Android review and a vendor payments SDK are both blocking.' },
+    { tone: 'negative', text: 'AI Assist Rollout moved to At Risk this week as inference costs ran 22% over budget at current beta scale.' },
+  ],
+};
+
+window.WEEK_LABEL = 'Week of April 14 – 20, 2026';
+window.PRIOR_WEEKS = [
+  { label: 'Apr 7 – 13, 2026', summary: '3 green · 1 yellow · 0 red' },
+  { label: 'Mar 31 – Apr 6, 2026', summary: '2 green · 2 yellow · 0 red' },
+  { label: 'Mar 24 – 30, 2026', summary: '2 green · 1 yellow · 1 red' },
+];
+
+</script>
+<script type="text/babel">
+// Icon set — simple inline SVGs
+const Icon = {
+  Plus: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M8 3v10M3 8h10" strokeLinecap="round"/></svg>,
+  Chev: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  Up: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M8 12V4M4 8l4-4 4 4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  Down: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M8 4v8M4 8l4 4 4-4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  Flat: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M4 8h8" strokeLinecap="round"/></svg>,
+  Warn: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M8 2.5L14.5 13h-13L8 2.5z" strokeLinejoin="round"/><path d="M8 7v3M8 11.5v.1" strokeLinecap="round"/></svg>,
+  Export: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M8 10V3M5 6l3-3 3 3" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 10v2a1 1 0 001 1h8a1 1 0 001-1v-2" strokeLinecap="round"/></svg>,
+  History: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 8a5 5 0 105-5" strokeLinecap="round"/><path d="M3 3v3h3" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 5v3l2 1.5" strokeLinecap="round"/></svg>,
+  Search: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><circle cx="7" cy="7" r="4"/><path d="M10 10l3 3" strokeLinecap="round"/></svg>,
+  Sparkle: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M8 1.5L9.4 5.6 13.5 7 9.4 8.4 8 12.5 6.6 8.4 2.5 7 6.6 5.6z"/><path d="M13 11.5l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5z"/></svg>,
+  Edit: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M11 2l3 3-8.5 8.5H2.5V10.5L11 2z"/></svg>,
+  Spinner: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" {...p} style={{animation:'spin 0.9s linear infinite',...(p.style||{})}}><path d="M8 1.5A6.5 6.5 0 1114.5 8" opacity="0.85"/></svg>,
+  Teams: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 4h7a1 1 0 011 1v6a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z" strokeLinejoin="round"/><path d="M4.5 6.5h4M6.5 6.5V10" strokeLinecap="round"/><circle cx="12.5" cy="5.5" r="1.5"/><path d="M11 9.5a2.5 2.5 0 012.5-2.5h.5a1 1 0 011 1v2.25A1.75 1.75 0 0113.25 12H13" strokeLinecap="round"/></svg>,
+  Linear: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.3" {...p}><circle cx="8" cy="8" r="5.5"/><path d="M4 8l4 4M5 5l6 6M8 4l4 4"/></svg>,
+  Github: (p) => <svg viewBox="0 0 16 16" fill="currentColor" {...p}><path d="M8 1.5a6.5 6.5 0 00-2.05 12.67c.32.06.44-.14.44-.31v-1.2c-1.81.4-2.19-.77-2.19-.77-.3-.75-.72-.95-.72-.95-.59-.4.04-.4.04-.4.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.44-.16-2.96-.72-2.96-3.21 0-.71.26-1.29.67-1.75-.07-.16-.29-.82.06-1.71 0 0 .55-.17 1.8.67a6.25 6.25 0 013.27 0c1.25-.84 1.8-.67 1.8-.67.36.9.13 1.55.06 1.71.42.46.67 1.04.67 1.75 0 2.5-1.52 3.05-2.97 3.21.23.2.44.59.44 1.19v1.77c0 .17.12.37.44.31A6.5 6.5 0 008 1.5z"/></svg>,
+  Doc: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" {...p}><path d="M4 2h5l3 3v9a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z" strokeLinejoin="round"/><path d="M9 2v3h3M5.5 8h5M5.5 10.5h5M5.5 6h2" strokeLinecap="round"/></svg>,
+  Star: ({ filled, ...p }) => <svg viewBox="0 0 16 16" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.4" {...p}><path d="M8 2l1.8 3.7 4 .6-2.9 2.8.7 4L8 11.3 4.4 13.2l.7-4L2.2 6.3l4-.6L8 2z" strokeLinejoin="round" strokeLinecap="round"/></svg>,
+  ChevRight: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  List: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><path d="M3 4h10M3 8h10M3 12h10" strokeLinecap="round"/></svg>,
+  GridIcon: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" {...p}><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></svg>,
+  X: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}><path d="M4 4l8 8M12 4l-8 8" strokeLinecap="round"/></svg>,
+  Link: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M7 9a2.5 2.5 0 003.5 0l2-2a2.5 2.5 0 00-3.5-3.5L8 4.5"/><path d="M9 7a2.5 2.5 0 00-3.5 0l-2 2A2.5 2.5 0 007 12.5L8 11.5"/></svg>,
+  Lock: (p) => <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}><rect x="3" y="7" width="10" height="7" rx="1.2"/><path d="M5.5 7V5a2.5 2.5 0 015 0v2"/></svg>,
+  ArrowRight: (p) => <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" {...p}><path d="M2.5 6h7M7 3.5l2.5 2.5L7 8.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+};
+
+const statusLabel = (s) => ({ green: 'On Track', yellow: 'At Risk', red: 'Off Track' }[s]);
+
+function StatusPill({ status }) {
+  return (
+    <span className={`status ${status}`}>
+      <span className="pulse" />
+      {statusLabel(status)}
+    </span>
+  );
+}
+
+function ChangeBadge({ prev, current }) {
+  if (!prev || prev === current) return null;
+  const order = { green: 0, yellow: 1, red: 2 };
+  const worse = order[current] > order[prev];
+  return (
+    <span className={`change-badge ${worse ? 'worse' : 'better'}`}>
+      {worse ? <Icon.Down /> : <Icon.Up />}
+      {statusLabel(prev)}
+      <Icon.ArrowRight />
+      {statusLabel(current)}
+    </span>
+  );
+}
+
+function DeltaChip({ delta, unit = '', good = 'up' }) {
+  if (delta == null) return null;
+  const sign = delta > 0 ? '+' : delta < 0 ? '−' : '';
+  const abs = Math.abs(delta);
+  const isFlat = delta === 0;
+  // "good" tells us which direction of change is positive. 'up' = higher is better.
+  let tone = 'flat';
+  if (!isFlat) {
+    const positive = (delta > 0 && good === 'up') || (delta < 0 && good === 'down');
+    tone = positive ? 'up' : 'down';
+  }
+  const arrow = isFlat ? <Icon.Flat /> : delta > 0 ? <Icon.Up /> : <Icon.Down />;
+  return (
+    <span className={`metric-delta ${tone}`}>
+      {arrow}
+      <span>{sign}{abs}{unit}</span>
+    </span>
+  );
+}
+
+function Metric({ m }) {
+  return (
+    <div className="metric">
+      <div className="metric-label">{m.label}</div>
+      <div className="metric-value">
+        <span>{m.value}</span>
+        <DeltaChip delta={m.delta} unit={m.unit || ''} good={m.good || 'up'} />
+      </div>
+    </div>
+  );
+}
+
+function Bullets({ items, variant }) {
+  return (
+    <ul className={`bullets ${variant || ''}`}>
+      {items.map((t, i) => (
+        <li key={i}>
+          {variant === 'risks' && <span className="warn"><Icon.Warn /></span>}
+          <span>{t}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProjectCard({ p, compact, onShare }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className={`card status-${p.status} ${compact ? 'compact' : ''}`}>
+      <div className="card-head">
+        <div>
+          <div className="proj-title">
+            <span>{p.name}</span>
+            <ChangeBadge prev={p.prevStatus} current={p.status} />
+          </div>
+          <div className="meta-row">
+            <span className="owner">{p.owner}</span>
+            <span className="dot-sep">·</span>
+            <span className="team">{p.team}</span>
+            <span className="dot-sep">·</span>
+            <span className="mono">Updated {p.updated}</span>
+          </div>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <button
+            className="btn ghost sm share-btn"
+            onClick={(e) => { e.stopPropagation(); onShare && onShare(p); }}
+            title="Copy a pre-filled submission link for this project"
+          >
+            <Icon.Link className="btn-icon" />
+            <span className="share-label">Share link</span>
+          </button>
+          <StatusPill status={p.status} />
+        </div>
+      </div>
+
+      <div className="proj-sections">
+        <div className="section-block">
+          <h4>Current Status <span className="count">· {p.current.length}</span></h4>
+          <Bullets items={p.current} />
+        </div>
+        <div className="section-block">
+          <h4>Next Steps <span className="count">· {p.next.length}</span></h4>
+          <Bullets items={p.next} variant="next" />
+        </div>
+        {p.risks && p.risks.length > 0 && (
+          <div className="section-block risks">
+            <h4>Risks / Blockers <span className="count">· {p.risks.length}</span></h4>
+            <Bullets items={p.risks} variant="risks" />
+          </div>
+        )}
+      </div>
+
+      <div className="metrics-toggle">
+        <button className="btn ghost sm" onClick={() => setOpen(!open)}>
+          {open ? 'Hide metrics' : 'View metrics'}
+          <Icon.Chev style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }} />
+        </button>
+        <span className="updated-tag">{p.metrics.length} KPIs tracked</span>
+      </div>
+
+      <div className={`metrics ${open ? 'open' : ''}`}>
+        {p.metrics.map((m, i) => <Metric key={i} m={m} />)}
+      </div>
+    </div>
+  );
+}
+
+function HealthDonut({ counts }) {
+  const total = counts.green + counts.yellow + counts.red;
+  const R = 38;
+  const C = 2 * Math.PI * R;
+  const segs = [
+    { c: 'var(--green)', v: counts.green },
+    { c: 'var(--amber)', v: counts.yellow },
+    { c: 'var(--red)', v: counts.red },
+  ];
+  let offset = 0;
+  return (
+    <svg className="donut" viewBox="0 0 92 92">
+      <circle className="track" cx="46" cy="46" r={R} />
+      {segs.map((s, i) => {
+        const len = (s.v / total) * C;
+        const el = (
+          <circle
+            key={i}
+            cx="46" cy="46" r={R}
+            stroke={s.c}
+            strokeDasharray={`${len} ${C}`}
+            strokeDashoffset={-offset}
+            strokeLinecap="butt"
+            transform="rotate(-90 46 46)"
+          />
+        );
+        offset += len;
+        return el;
+      })}
+      <text x="46" y="44" textAnchor="middle" fontSize="18" fontWeight="600" fill="var(--ink)" fontFamily="Inter" letterSpacing="-0.02em">{total}</text>
+      <text x="46" y="58" textAnchor="middle" fontSize="9" fill="var(--muted)" fontFamily="JetBrains Mono" letterSpacing="0.1em">PROJECTS</text>
+    </svg>
+  );
+}
+
+function ExecutiveSummary({ data, projects }) {
+  const counts = {
+    green: projects.filter(p => p.status === 'green').length,
+    yellow: projects.filter(p => p.status === 'yellow').length,
+    red: projects.filter(p => p.status === 'red').length,
+  };
+  return (
+    <div className="summary">
+      <div className="summary-left">
+        <div className="summary-head">
+          <span className="summary-badge"><span className="dot"></span>Live Summary</span>
+        </div>
+        <div className="summary-title" style={{ marginTop: 10 }}>Portfolio health, this week</div>
+        <div className="mono">Auto-generated · 14:02 UTC</div>
+        <div className="health-ring">
+          <HealthDonut counts={counts} />
+          <div className="health-legend">
+            <div className="row"><span className="dot" style={{ background: 'var(--green)' }} /><span className="count">{counts.green}</span><span className="label">On Track</span></div>
+            <div className="row"><span className="dot" style={{ background: 'var(--amber)' }} /><span className="count">{counts.yellow}</span><span className="label">At Risk</span></div>
+            <div className="row"><span className="dot" style={{ background: 'var(--red)' }} /><span className="count">{counts.red}</span><span className="label">Off Track</span></div>
+          </div>
+        </div>
+      </div>
+      <div className="summary-bullets">
+        {data.bullets.map((b, i) => (
+          <div key={i} className={`sum-item ${b.tone}`}>
+            <span className="marker" />
+            <span>{b.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function UpdateForm({ onClose, onSubmit, projects, lockedProjectId }) {
+  const lockedProject = lockedProjectId ? projects.find(p => p.id === lockedProjectId) : null;
+  const [mode, setMode] = React.useState('paste'); // 'paste' | 'manual'
+  const [raw, setRaw] = React.useState('');
+  const [parsing, setParsing] = React.useState(false);
+  const [parseError, setParseError] = React.useState('');
+  const [parsed, setParsed] = React.useState(null); // { confidence, fields }
+  const [form, setForm] = React.useState({
+    name: lockedProject ? lockedProject.name : '',
+    owner: lockedProject ? lockedProject.owner : '',
+    team: lockedProject ? lockedProject.team : '',
+    status: lockedProject ? lockedProject.status : 'green',
+    current: '', next: '', risks: '',
+    matchedProjectId: lockedProjectId || '',
+  });
+  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  const applyParse = (p) => {
+    setParsed(p);
+    const matched = projects.find(x => x.id === p.fields.matchedProjectId);
+    setForm({
+      name: matched ? matched.name : (p.fields.name || ''),
+      owner: matched ? matched.owner : (p.fields.owner || ''),
+      team: matched ? matched.team : (p.fields.team || ''),
+      status: p.fields.status || 'green',
+      current: (p.fields.current || []).join('\n'),
+      next: (p.fields.next || []).join('\n'),
+      risks: (p.fields.risks || []).join('\n'),
+      matchedProjectId: matched ? matched.id : '',
+    });
+    setMode('manual');
+  };
+
+  const parseWithAI = async () => {
+    if (!raw.trim()) return;
+    setParsing(true);
+    setParseError('');
+    const projectList = projects.map(p => `- ${p.id}: "${p.name}" (owner: ${p.owner}, team: ${p.team})`).join('\n');
+    const prompt = `You are parsing a casual status update into structured data for a project tracker.
+
+Known projects (match by id if the text clearly refers to one):
+${projectList}
+
+Statuses: "green" (On Track), "yellow" (At Risk), "red" (Off Track).
+
+Parse the following update into JSON with this exact shape:
+{
+  "matchedProjectId": "<id from list, or empty string if no clear match>",
+  "name": "<project name if new, empty if matched>",
+  "owner": "<owner name or empty>",
+  "team": "<team name or empty>",
+  "status": "green" | "yellow" | "red",
+  "current": ["bullet", ...],
+  "next": ["bullet", ...],
+  "risks": ["bullet", ...],
+  "confidence": <0.0 to 1.0>,
+  "confidenceNotes": "<one short sentence on what's uncertain>"
+}
+
+Return ONLY valid JSON, no other text.
+
+Update to parse:
+"""
+${raw}
+"""`;
+
+    try {
+      const response = await window.claude.complete(prompt);
+      // Strip any code fences
+      const clean = response.replace(/^\s*```(?:json)?/i, '').replace(/```\s*$/, '').trim();
+      const data = JSON.parse(clean);
+      applyParse({ confidence: data.confidence ?? 0.7, notes: data.confidenceNotes || '', fields: data });
+    } catch (err) {
+      setParseError('Could not parse that update. Try rephrasing or use manual entry.');
+    } finally {
+      setParsing(false);
+    }
+  };
+
+  const submit = (e) => {
+    e && e.preventDefault();
+    const toBullets = (s) => s.split('\n').map(t => t.trim()).filter(Boolean);
+    onSubmit({
+      id: form.matchedProjectId || 'new-' + Date.now(),
+      name: form.name || 'Untitled Project',
+      owner: form.owner || 'Unassigned',
+      team: form.team || '—',
+      updated: 'Apr 24',
+      status: form.status,
+      prevStatus: form.status,
+      featured: false,
+      current: toBullets(form.current),
+      next: toBullets(form.next),
+      risks: toBullets(form.risks),
+      metrics: [],
+    });
+  };
+
+  const examples = [
+    "Mobile launch update: still at risk this week. iOS is good, 240 testers in TestFlight, but Android review is blocked and the payments SDK vendor missed their QA deadline. Next up: escalate with our partner contact and rehearse launch-day war room Thursday.",
+    "Revenue Dashboard — all green. Finance + RevOps fully onboarded. WAU hit 312, up 28%. Next: open GA to sales leadership and ship cohort retention view.",
+  ];
+
+  const confidenceColor = (c) => c > 0.8 ? 'var(--green)' : c > 0.55 ? 'var(--amber)' : 'var(--red)';
+  const confidenceLabel = (c) => c > 0.8 ? 'High confidence' : c > 0.55 ? 'Medium confidence' : 'Low confidence';
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <form className="modal modal-wide" onClick={(e) => e.stopPropagation()} onSubmit={submit}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:16}}>
+          <div>
+            <h3>Submit weekly update</h3>
+            {lockedProject ? (
+              <p className="muted" style={{marginBottom:0, display:'flex', alignItems:'center', gap:8}}>
+                <Icon.Lock style={{width:13,height:13,color:'var(--muted)'}} />
+                <span>Submitting an update for <strong style={{color:'var(--ink)'}}>{lockedProject.name}</strong> · <span className="mono" style={{fontSize:12}}>{lockedProject.owner}</span></span>
+              </p>
+            ) : (
+              <p className="muted" style={{marginBottom:0}}>Paste a free-text update and let AI structure it, or fill fields manually.</p>
+            )}
+          </div>
+          <button type="button" className="btn ghost sm" onClick={onClose} aria-label="Close"><Icon.X /></button>
+        </div>
+
+        <div className="mode-tabs">
+          <button type="button" className={'mode-tab ' + (mode === 'paste' ? 'on' : '')} onClick={() => setMode('paste')}>
+            <Icon.Sparkle /> Paste an update
+          </button>
+          <button type="button" className={'mode-tab ' + (mode === 'manual' ? 'on' : '')} onClick={() => setMode('manual')}>
+            <Icon.Edit /> Manual entry
+          </button>
+          {parsed && (
+            <span className="parse-badge" style={{marginLeft:'auto'}}>
+              <span className="dot" style={{background:confidenceColor(parsed.confidence)}}></span>
+              {confidenceLabel(parsed.confidence)} · {Math.round(parsed.confidence * 100)}%
+            </span>
+          )}
+        </div>
+
+        {mode === 'paste' ? (
+          <div className="paste-pane">
+            <textarea
+              className="paste-textarea"
+              placeholder="Paste or type your update in plain English. Mention the project, what changed, what's next, and any blockers."
+              value={raw}
+              onChange={(e) => setRaw(e.target.value)}
+              rows={8}
+            />
+            <div className="paste-examples">
+              <span className="label">Try:</span>
+              {examples.map((ex, i) => (
+                <button key={i} type="button" className="example-btn" onClick={() => setRaw(ex)}>
+                  Example {i + 1}
+                </button>
+              ))}
+            </div>
+            {parseError && <div className="parse-error">{parseError}</div>}
+            {parsed && parsed.notes && (
+              <div className="parse-notes">
+                <strong>Notes:</strong> {parsed.notes}
+              </div>
+            )}
+            <div className="form-actions">
+              <button type="button" className="btn" onClick={onClose}>Cancel</button>
+              <button type="button" className="btn primary" onClick={parseWithAI} disabled={parsing || !raw.trim()}>
+                {parsing ? <><Icon.Spinner /> Parsing…</> : <><Icon.Sparkle /> Parse with AI</>}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="manual-pane">
+            {parsed && (
+              <div className="parse-summary">
+                <Icon.Sparkle style={{color: confidenceColor(parsed.confidence)}} />
+                <span>AI populated these fields from your update. Review and edit anything before submitting.</span>
+                <button type="button" className="btn sm ghost" onClick={() => setMode('paste')}>Re-parse</button>
+              </div>
+            )}
+            <div className="form-grid">
+              <div className="form-field full">
+                <label>Project {parsed && parsed.fields.matchedProjectId && <span className="field-tag ok">Matched existing</span>}{lockedProject && <span className="field-tag ok"><Icon.Lock style={{width:10,height:10,marginRight:3}}/>Locked</span>}</label>
+                {lockedProject ? (
+                  <div style={{padding:'10px 12px', border:'1px solid var(--line-3)', borderRadius:8, background:'#F5F5F5', color:'var(--ink)', fontSize:14, display:'flex', alignItems:'center', gap:8}}>
+                    <Icon.Lock style={{width:13,height:13,color:'var(--muted)'}} />
+                    <span>{lockedProject.name}</span>
+                    <span style={{color:'var(--muted-2)',margin:'0 4px'}}>·</span>
+                    <span className="mono" style={{color:'var(--muted)', fontSize:12.5}}>{lockedProject.team}</span>
+                  </div>
+                ) : parsed && parsed.fields.matchedProjectId ? (
+                  <select value={form.matchedProjectId} onChange={(e) => {
+                    const matched = projects.find(p => p.id === e.target.value);
+                    setForm({...form, matchedProjectId: e.target.value, name: matched?.name || form.name, owner: matched?.owner || form.owner, team: matched?.team || form.team});
+                  }}>
+                    <option value="">— New project —</option>
+                    {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+                  </select>
+                ) : (
+                  <input value={form.name} onChange={update('name')} placeholder="e.g. Partner API GA" required />
+                )}
+              </div>
+              <div className="form-field">
+                <label>Owner</label>
+                <input value={form.owner} onChange={update('owner')} placeholder="Full name" required />
+              </div>
+              <div className="form-field">
+                <label>Team</label>
+                <input value={form.team} onChange={update('team')} placeholder="e.g. Platform" />
+              </div>
+              <div className="form-field full">
+                <label>Status</label>
+                <div className="status-picker">
+                  {['green','yellow','red'].map(s => (
+                    <label key={s} className={form.status === s ? `sel-${s}` : ''}>
+                      <input type="radio" name="status" value={s} checked={form.status === s} onChange={update('status')} />
+                      <span className="swatch" style={{ background: `var(--${s === 'green' ? 'green' : s === 'yellow' ? 'amber' : 'red'})` }} />
+                      <span>{statusLabel(s)}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="form-field full">
+                <label>Current status · one bullet per line</label>
+                <textarea value={form.current} onChange={update('current')} placeholder={'Core API integration shipped\nBeta with 5 customers'} />
+              </div>
+              <div className="form-field full">
+                <label>Next steps · one bullet per line</label>
+                <textarea value={form.next} onChange={update('next')} />
+              </div>
+              <div className="form-field full">
+                <label>Risks / blockers · one bullet per line</label>
+                <textarea value={form.risks} onChange={update('risks')} placeholder="Waiting on vendor API approval" />
+              </div>
+            </div>
+            <div className="form-actions">
+              <button type="button" className="btn" onClick={onClose}>Cancel</button>
+              <button type="submit" className="btn primary">Submit update</button>
+            </div>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+}
+
+function Tweaks({ state, setState }) {
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setVisible(true);
+      if (e.data?.type === '__deactivate_edit_mode') setVisible(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+  if (!visible) return null;
+  const toggle = (k) => () => {
+    const next = { ...state, [k]: !state[k] };
+    setState(next);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: next[k] } }, '*');
+  };
+  return (
+    <div className="tweaks">
+      <h5>Tweaks</h5>
+      <div className="tweak-row">
+        <span>Executive Summary</span>
+        <button className={`toggle ${state.showSummary ? 'on' : ''}`} onClick={toggle('showSummary')} />
+      </div>
+      <div className="tweak-row">
+        <span>Compact density</span>
+        <button className={`toggle ${state.compact ? 'on' : ''}`} onClick={toggle('compact')} />
+      </div>
+    </div>
+  );
+}
+
+function Toast({ msg }) {
+  if (!msg) return null;
+  return <div className="toast">{msg}</div>;
+}
+
+Object.assign(window, { Icon, StatusPill, ChangeBadge, ProjectCard, ExecutiveSummary, UpdateForm, Tweaks, Toast, HealthDonut, statusLabel });
+
+</script>
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "showSummary": true,
+  "compact": false,
+  "defaultView": "list"
+}/*EDITMODE-END*/;
+
+// Pick the single most important line for the focus cell
+function ChannelChip({ channel, unread, onClick }) {
+  if (!channel) return null;
+  return (
+    <button className="chan-btn" onClick={(e) => { e.stopPropagation(); onClick && onClick(); }} title={'Teams: #' + channel + (unread ? ' — ' + unread + ' unread' : '')}>
+      <Icon.Teams />
+      <span>#{channel}</span>
+      {unread > 0 && <span className="unread-dot" />}
+    </button>
+  );
+}
+
+function ConnectedSection({ p }) {
+  const connectorIcon = { linear: <Icon.Linear />, github: <Icon.Github />, doc: <Icon.Doc /> };
+  const connectorLabel = { linear: 'Linear', github: 'GitHub', doc: 'Doc' };
+  return (
+    <div className="exp-connected">
+      <span className="label">Connected</span>
+      {p.channel && (
+        <a className="conn-chip primary" onClick={(e) => e.preventDefault()} href="#">
+          <Icon.Teams />
+          <span className="mono">#{p.channel}</span>
+          {p.unread > 0 && <span className="count">{p.unread}</span>}
+          <span className="activity">· {p.lastActivity}</span>
+        </a>
+      )}
+      {(p.connectors || []).map((c, i) => (
+        <a key={i} className="conn-chip" onClick={(e) => e.preventDefault()} href="#">
+          {connectorIcon[c.type]}
+          <span>{connectorLabel[c.type]}</span>
+          <span className="mono" style={{color:'var(--muted)'}}>{c.label}</span>
+          {c.count != null && <span className="count">{c.count}</span>}
+        </a>
+      ))}
+      <span className="connect-hint">
+        <kbd>+</kbd> Add connector
+      </span>
+    </div>
+  );
+}
+
+function pickFocus(p) {
+  let tone = 'next', label = 'Next';
+  if (p.status === 'red') { tone = 'risk'; label = 'Blocker'; }
+  else if (p.status === 'yellow') { tone = 'atrisk'; label = 'Risk'; }
+  else if (p.status === 'green') { tone = 'win'; label = 'Win'; }
+  if (p.focus) return { tone, label, text: p.focus };
+  if (p.status === 'red' && p.risks && p.risks[0]) return { tone, label, text: p.risks[0] };
+  if (p.status === 'yellow' && p.risks && p.risks[0]) return { tone, label, text: p.risks[0] };
+  if (p.status === 'green' && p.current && p.current[0]) return { tone, label, text: p.current[0] };
+  if (p.next && p.next[0]) return { tone, label, text: p.next[0] };
+  return null;
+}
+
+function highlight(text, q) {
+  if (!q) return text;
+  try {
+    const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+    const parts = text.split(re);
+    return parts.map((part, i) => re.test(part) ? <em key={i}>{part}</em> : <React.Fragment key={i}>{part}</React.Fragment>);
+  } catch { return text; }
+}
+
+function projectMatches(p, q) {
+  if (!q) return true;
+  const hay = [p.name, p.owner, p.team, ...(p.current||[]), ...(p.next||[]), ...(p.risks||[])].join(' ').toLowerCase();
+  return hay.includes(q.toLowerCase());
+}
+
+function SearchBar({ value, onChange, onClear }) {
+  const ref = React.useRef(null);
+  useEffect(() => {
+    const h = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); ref.current?.focus(); }
+      if (e.key === 'Escape' && document.activeElement === ref.current) { onClear(); ref.current?.blur(); }
+    };
+    window.addEventListener('keydown', h);
+    return () => window.removeEventListener('keydown', h);
+  }, [onClear]);
+  return (
+    <div className="search-wrap">
+      <Icon.Search />
+      <input ref={ref} value={value} onChange={(e) => onChange(e.target.value)} placeholder="Search projects, owners, risks…" />
+      {value ? (
+        <button className="search-clear" onClick={onClear} aria-label="Clear"><Icon.X style={{width:13,height:13}}/></button>
+      ) : (
+        <kbd>⌘K</kbd>
+      )}
+    </div>
+  );
+}
+
+function ExpansionRow({ p, colSpan, onShare }) {
+  return (
+    <tr className="expansion">
+      <td colSpan={colSpan}>
+        <div className="exp-inner">
+          <div className="exp-col">
+            <h4>Current · {p.current.length}</h4>
+            <Bullets items={p.current} />
+          </div>
+          <div className="exp-col">
+            <h4>Next steps · {p.next.length}</h4>
+            <Bullets items={p.next} variant="next" />
+          </div>
+          {p.risks && p.risks.length > 0 && (
+            <div className="exp-risks" style={{ gridColumn: '1 / -1' }}>
+              <strong>Risks &amp; Blockers</strong>
+              <ul>{p.risks.map((r, i) => <li key={i}>{r}</li>)}</ul>
+            </div>
+          )}
+          <ConnectedSection p={p} />
+          {p.metrics && p.metrics.length > 0 && (
+            <div className="exp-metrics">
+              {p.metrics.map((m, i) => <Metric key={i} m={m} />)}
+            </div>
+          )}
+          {onShare && (
+            <div className="exp-actions" style={{ gridColumn: '1 / -1' }}>
+              <button className="btn sm" onClick={(e) => { e.stopPropagation(); onShare(p); }}>
+                <Icon.Link className="btn-icon" />
+                Share submission link for {p.name}
+              </button>
+              <span className="exp-actions-hint">
+                Sends a pre-filled, project-locked form link this project's contributors can fill out.
+              </span>
+            </div>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function Row({ p, q, expanded, onToggle, onStar, starred, onShare }) {
+  const focus = pickFocus(p);
+  return (
+    <>
+      <tr className={'row ' + (expanded ? 'expanded' : '')} onClick={onToggle}>
+        <td className="col-name">
+          <div className="td-name-inner">
+            <Icon.ChevRight className={'caret ' + (expanded ? 'open' : '')} />
+            <button className={'star-btn ' + (starred ? 'on' : '')} onClick={(e) => { e.stopPropagation(); onStar(); }} aria-label="Pin">
+              <Icon.Star filled={starred} />
+            </button>
+            <span style={{whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',minWidth:0,flex:'1 1 auto'}}>{highlight(p.name, q)}</span>
+            {p.prevStatus && p.prevStatus !== p.status && <ChangeBadge prev={p.prevStatus} current={p.status} />}
+          </div>
+        </td>
+        <td className="col-status"><StatusPill status={p.status} /></td>
+        <td className="col-owner">{highlight(p.owner, q)}</td>
+        <td className="col-team">{p.team}</td>
+        <td className="col-updated">{p.updated}</td>
+        <td className="col-focus">
+          {focus ? (
+            <div className="focus-cell">
+              <span className={'label ' + focus.tone}>{focus.label}</span>
+              <span className="text">{highlight(focus.text, q)}</span>
+            </div>
+          ) : <span style={{color:'var(--muted-2)'}}>—</span>}
+        </td>
+      </tr>
+      {expanded && <ExpansionRow p={p} colSpan={6} onShare={onShare} />}
+    </>
+  );
+}
+
+function ListView({ projects, q, starred, onStar, onShare }) {
+  const [expandedId, setExpandedId] = useState(null);
+  const toggle = (id) => setExpandedId(expandedId === id ? null : id);
+
+  const pinned = projects.filter(p => starred.has(p.id));
+  const rest = projects.filter(p => !starred.has(p.id));
+
+  const renderTable = (rows) => (
+    <div className="table-wrap">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>Team</th>
+            <th>Updated</th>
+            <th>Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(p => (
+            <Row key={p.id} p={p} q={q}
+              expanded={expandedId === p.id}
+              onToggle={() => toggle(p.id)}
+              starred={starred.has(p.id)}
+              onStar={() => onStar(p.id)}
+              onShare={onShare} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  if (projects.length === 0) {
+    return <div className="search-empty"><span className="mono">No matches</span>Try a different search term or clear filters.</div>;
+  }
+
+  return (
+    <>
+      {pinned.length > 0 && (
+        <>
+          <div className="list-section">
+            <h3>Pinned</h3>
+            <span className="mono">{pinned.length}</span>
+            <div className="rule"></div>
+          </div>
+          {renderTable(pinned)}
+        </>
+      )}
+      {rest.length > 0 && (
+        <>
+          {pinned.length > 0 && (
+            <div className="list-section">
+              <h3>All projects</h3>
+              <span className="mono">{rest.length}</span>
+              <div className="rule"></div>
+            </div>
+          )}
+          {renderTable(rest)}
+        </>
+      )}
+    </>
+  );
+}
+
+function App() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [view, setView] = useState(TWEAK_DEFAULTS.defaultView || 'list');
+  const [showAll, setShowAll] = useState(false);
+  const [filter, setFilter] = useState('all');
+  const [sort, setSort] = useState('default');
+  const [formOpen, setFormOpen] = useState(false);
+  const [lockedProjectId, setLockedProjectId] = useState(null);
+  const [extras, setExtras] = useState([]);
+  const [week, setWeek] = useState(window.WEEK_LABEL);
+  const [weekIdx, setWeekIdx] = useState(0);
+  const [toast, setToast] = useState('');
+  const [query, setQuery] = useState('');
+  const [starred, setStarred] = useState(new Set(['platform-migration', 'mobile-launch']));
+
+  // Handle URL params: #project=<id>&submit=1 (hash-based so preview auth stays intact)
+  useEffect(() => {
+    const parseHash = () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      if (!hash) return;
+      const params = new URLSearchParams(hash);
+      const pid = params.get('project');
+      const submit = params.get('submit');
+      if (pid && submit === '1') {
+        const exists = window.PROJECTS.find(p => p.id === pid);
+        if (exists) {
+          setLockedProjectId(pid);
+          setFormOpen(true);
+        }
+      }
+    };
+    parseHash();
+    window.addEventListener('hashchange', parseHash);
+    return () => window.removeEventListener('hashchange', parseHash);
+  }, []);
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(''), 2600);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  const allProjects = useMemo(() => [...extras, ...window.PROJECTS], [extras]);
+
+  const filtered = useMemo(() => {
+    let list = allProjects.filter(p => projectMatches(p, query));
+    if (filter === 'attention') list = list.filter(p => p.status !== 'green');
+    if (filter === 'risk') list = list.filter(p => p.status === 'red' || p.status === 'yellow');
+    if (filter === 'red') list = list.filter(p => p.status === 'red');
+
+    if (sort === 'recent') list = [...list].sort((a, b) => b.updated.localeCompare(a.updated));
+    else if (sort === 'risk') {
+      const rank = { red: 0, yellow: 1, green: 2 };
+      list = [...list].sort((a, b) => rank[a.status] - rank[b.status]);
+    } else if (sort === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    return list;
+  }, [allProjects, filter, sort, query]);
+
+  // Grid view uses featured subset
+  const featured = filtered.filter(p => p.featured || extras.find(e => e.id === p.id)).slice(0, 4);
+  const additional = showAll ? filtered.filter(p => !featured.includes(p)) : [];
+
+  const toggleStar = (id) => {
+    const next = new Set(starred);
+    if (next.has(id)) next.delete(id); else next.add(id);
+    setStarred(next);
+  };
+
+  const handleSubmit = (project) => {
+    setExtras([project, ...extras]);
+    setFormOpen(false);
+    setLockedProjectId(null);
+    setToast(`"${project.name}" added to this week's update`);
+  };
+
+  const handleShare = (project) => {
+    const base = window.location.origin + window.location.pathname + window.location.search;
+    const url = `${base}#project=${encodeURIComponent(project.id)}&submit=1`;
+    // Attempt to write to clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(
+        () => setToast(`Share link for "${project.name}" copied to clipboard`),
+        () => setToast(`Link: ${url}`)
+      );
+    } else {
+      setToast(`Link: ${url}`);
+    }
+  };
+
+  const handleCloseForm = () => {
+    setFormOpen(false);
+    setLockedProjectId(null);
+    // Clear hash if we got here from a share link
+    if (lockedProjectId && window.location.hash) {
+      window.history.replaceState({}, '', window.location.pathname + window.location.search);
+    }
+  };
+
+  const exportSnapshot = () => window.print();
+
+  const statusCounts = {
+    green: allProjects.filter(p => p.status === 'green').length,
+    yellow: allProjects.filter(p => p.status === 'yellow').length,
+    red: allProjects.filter(p => p.status === 'red').length,
+  };
+
+  return (
+    <div className="app">
+      <header className="topbar">
+        <div className="topbar-inner">
+          <div className="brand">
+            <span className="brand-mark"></span>
+            <span className="brand-name">Northline</span>
+            <span className="brand-sep">/</span>
+            <span className="brand-sub">Executive Review</span>
+          </div>
+          <div className="top-spacer"></div>
+          <a href="Automation Roadmap.html" className="brand-sub" style={{color:'var(--muted)', textDecoration:'none', fontSize:13.5, marginRight:16, display:'inline-flex', alignItems:'center', gap:6}} title="View automation roadmap">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" width="13" height="13"><path d="M2 8h12M10 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            Roadmap
+          </a>
+          <div className="top-meta">
+            <span>Portfolio</span>
+            <span className="top-dot"></span>
+            <span className="mono">{allProjects.length} projects</span>
+            <span className="top-dot"></span>
+            <span className="mono" style={{color:'var(--red-ink)'}}>{statusCounts.red} off track</span>
+          </div>
+        </div>
+      </header>
+
+      <main className="page">
+        <div className="page-head">
+          <div>
+            <div className="eyebrow">WEEKLY DIGEST — NO. 16</div>
+            <h1 className="title">Weekly Executive Project <span className="accent">Update</span></h1>
+            <div className="subtitle">{week} · A thirty-second read on what is working, what is not, and what is next.</div>
+          </div>
+          <div className="head-actions">
+            <button className="btn" onClick={() => setWeekIdx(weekIdx === 0 ? 1 : 0)}>
+              <Icon.History className="btn-icon" />
+              {weekIdx === 0 ? 'Past weeks' : 'Current week'}
+            </button>
+            <button className="btn" onClick={exportSnapshot}>
+              <Icon.Export className="btn-icon" />
+              Export
+            </button>
+            <button className="btn primary" onClick={() => setFormOpen(true)}>
+              <Icon.Plus className="btn-icon" />
+              Submit update
+            </button>
+          </div>
+        </div>
+
+        {weekIdx > 0 && (
+          <div className="history-banner">
+            <Icon.History className="btn-icon" />
+            <span>Viewing archived snapshot:</span>
+            <span className="mono">{window.PRIOR_WEEKS[weekIdx - 1].label} · {window.PRIOR_WEEKS[weekIdx - 1].summary}</span>
+            <button className="btn sm" onClick={() => setWeekIdx(0)}>Close</button>
+          </div>
+        )}
+
+        {tweaks.showSummary && <ExecutiveSummary data={window.EXEC_SUMMARY} projects={allProjects} />}
+
+        <div className="toolbar-row">
+          <SearchBar value={query} onChange={setQuery} onClear={() => setQuery('')} />
+          <div className="view-switch">
+            <button className={view === 'list' ? 'on' : ''} onClick={() => setView('list')}>
+              <Icon.List /> List
+            </button>
+            <button className={view === 'grid' ? 'on' : ''} onClick={() => setView('grid')}>
+              <Icon.GridIcon /> Grid
+            </button>
+          </div>
+        </div>
+
+        <div className="toolbar-row filters">
+          <div className="toolbar-left">
+            <div className="segmented">
+              <button className={filter === 'all' ? 'on' : ''} onClick={() => setFilter('all')}>All <span style={{opacity:0.6,marginLeft:4}}>{allProjects.length}</span></button>
+              <button className={filter === 'attention' ? 'on' : ''} onClick={() => setFilter('attention')}>Needs attention <span style={{opacity:0.6,marginLeft:4}}>{statusCounts.yellow + statusCounts.red}</span></button>
+              <button className={filter === 'risk' ? 'on' : ''} onClick={() => setFilter('risk')}>At risk <span style={{opacity:0.6,marginLeft:4}}>{statusCounts.yellow}</span></button>
+              <button className={filter === 'red' ? 'on' : ''} onClick={() => setFilter('red')}>Off track <span style={{opacity:0.6,marginLeft:4}}>{statusCounts.red}</span></button>
+            </div>
+            <div className="select">
+              <span className="toolbar-label">Sort</span>
+              <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                <option value="default">Featured</option>
+                <option value="risk">Highest risk</option>
+                <option value="recent">Most recent</option>
+                <option value="name">Name</option>
+              </select>
+              <span className="select-caret">▾</span>
+            </div>
+          </div>
+          <div className="toolbar-right">
+            <span className="toolbar-label mono">
+              {filtered.length} of {allProjects.length}
+              {query && <span style={{marginLeft:6,color:'var(--ink-2)'}}>· "{query}"</span>}
+            </span>
+          </div>
+        </div>
+
+        {view === 'list' ? (<div className="list-view-bound">
+          <ListView projects={filtered} q={query} starred={starred} onStar={toggleStar} onShare={handleShare} /></div>
+        ) : (
+          <>
+            <div className="grid">
+              {featured.length === 0 ? (
+                <div className="empty" style={{ gridColumn: '1 / -1' }}>No projects match this filter.</div>
+              ) : (
+                featured.map(p => <ProjectCard key={p.id} p={p} compact={tweaks.compact} onShare={handleShare} />)
+              )}
+            </div>
+            <div className="view-all-wrap">
+              <button className="btn" onClick={() => setShowAll(!showAll)}>
+                {showAll ? 'Hide additional projects' : `Show all projects · ${filtered.length - featured.length} more`}
+                <Icon.Chev style={{ transform: showAll ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }} />
+              </button>
+            </div>
+            {showAll && additional.length > 0 && (
+              <div className="more-wrap">
+                <div className="more-head">
+                  <h2>Additional projects</h2>
+                  <span className="mono">{additional.length} tracked</span>
+                  <div className="rule"></div>
+                </div>
+                <div className="grid compact">
+                  {additional.map(p => <ProjectCard key={p.id} p={p} compact={true} onShare={handleShare} />)}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+      </main>
+
+      {formOpen && <UpdateForm onClose={handleCloseForm} onSubmit={handleSubmit} projects={allProjects} lockedProjectId={lockedProjectId} />}
+      <Tweaks state={tweaks} setState={setTweaks} view={view} setView={setView} />
+      <Toast msg={toast} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+// Northline dashboard — project data loader
+// By default this file populates window.PROJECTS / EXEC_SUMMARY / etc. inline (mock data below).
+// To switch to JSON or SharePoint, set window.NORTHLINE_CONFIG.dataSource in config.js.
+// On 'json' / 'sharepoint' modes, app.jsx will await window.NORTHLINE_DATA_READY before rendering.
+
+(function () {
+  const cfg = window.NORTHLINE_CONFIG || { dataSource: 'inline' };
+
+  // Inline data is always defined so the app has a fallback.
+  
+  // Executive Dashboard — project data
+  window.PROJECTS = [
+    {
+      id: 'platform-migration', focus: "Latency down 41%", channel: 'platform-migration', unread: 12, lastActivity: '#14c', connectors: [{"type":"linear","label":"PLAT","count":34},{"type":"doc","label":"Migration plan"}],
+      name: 'Platform Migration',
+      owner: 'Priya Natarajan',
+      team: 'Infrastructure',
+      updated: 'Apr 18',
+      status: 'green',
+      prevStatus: 'yellow',
+      featured: true,
+      current: [
+        'Core services cut over to new orchestration layer',
+        'Zero-downtime migration validated in staging',
+        'P95 latency down 41% vs. legacy cluster',
+      ],
+      next: [
+        'Decommission legacy app servers by EOQ',
+        'Roll out observability playbooks to on-call',
+        'Publish internal migration retrospective',
+      ],
+      risks: [
+        'Two downstream consumers still on deprecated SDK',
+      ],
+      metrics: [
+        { label: 'P95 latency', value: '118ms', delta: -41, unit: '%', good: 'down' },
+        { label: 'Services migrated', value: '47 / 52', delta: +6, unit: ' this wk' },
+        { label: 'Infra cost / mo', value: '$182K', delta: -12, unit: '%', good: 'down' },
+        { label: 'Error rate', value: '0.04%', delta: -0.02, unit: 'pp', good: 'down' },
+      ],
+    },
+    {
+      id: 'mobile-launch', focus: "Vendor SDK missed QA", channel: 'mobile-app-launch', unread: 47, lastActivity: '2m', connectors: [{"type":"linear","label":"MOB","count":89},{"type":"github","label":"acme/mobile"},{"type":"doc","label":"Launch runbook"}],
+      name: 'Mobile App Launch',
+      owner: 'Marcus Chen',
+      team: 'Product',
+      updated: 'Apr 19',
+      status: 'red',
+      prevStatus: 'yellow',
+      featured: true,
+      current: [
+        'iOS build in TestFlight with 240 internal testers',
+        'Android build blocked on Play Console review',
+        'Launch brand campaign creative locked',
+      ],
+      next: [
+        'Escalate Play Console review via partner contact',
+        'Rehearse launch-day war room on Thursday',
+        'Finalize pricing page copy with Legal',
+      ],
+      risks: [
+        'Vendor SDK for payments missed QA deadline',
+        'Android review SLA creating 2-week slip risk',
+        'Hiring for mobile platform lead still open',
+      ],
+      metrics: [
+        { label: 'Days to launch', value: '18', delta: +5, unit: ' days', good: 'down' },
+        { label: 'Crash-free sessions', value: '99.1%', delta: +0.4, unit: 'pp' },
+        { label: 'TestFlight sign-ups', value: '240', delta: +86 },
+        { label: 'Open P0 bugs', value: '3', delta: +1, good: 'down' },
+      ],
+    },
+    {
+      id: 'revenue-dashboard', focus: "Week ahead of plan", channel: 'revenue-dashboard', unread: 6, lastActivity: '1h', connectors: [{"type":"linear","label":"REV","count":12},{"type":"doc","label":"Data dictionary"}],
+      name: 'Revenue Dashboard',
+      owner: 'Alex Whitfield',
+      team: 'Data Platform',
+      updated: 'Apr 21',
+      status: 'green',
+      prevStatus: 'green',
+      featured: true,
+      current: [
+        'Finance + RevOps onboarded to v2 dashboard',
+        'Real-time pipeline ingesting 14 sources',
+        'Rollout tracking one week ahead of plan',
+      ],
+      next: [
+        'Open GA access to all sales leadership',
+        'Ship cohort-level retention view',
+        'Begin consolidation of legacy BI reports',
+      ],
+      risks: [
+        'Spreadsheet-based forecasts still in parallel use',
+      ],
+      metrics: [
+        { label: 'Weekly active users', value: '312', delta: +28, unit: '%' },
+        { label: 'Queries / day', value: '4.8K', delta: +17, unit: '%' },
+        { label: 'Data freshness', value: '4 min', delta: -60, unit: '%', good: 'down' },
+        { label: 'NPS (internal)', value: '62', delta: +11 },
+      ],
+    },
+    {
+      id: 'ai-assist', focus: "Inference cost over budget", channel: 'ai-assist-rollout', unread: 23, lastActivity: '18m', connectors: [{"type":"linear","label":"AI","count":56},{"type":"github","label":"acme/ai-assist"}],
+      name: 'AI Assist Rollout',
+      owner: 'Dana Osei',
+      team: 'Applied AI',
+      updated: 'Apr 20',
+      status: 'yellow',
+      prevStatus: 'green',
+      featured: true,
+      current: [
+        'Closed beta with 14 enterprise accounts',
+        'Avg deflection on Tier-1 tickets up to 38%',
+        'Model eval harness shipped to prod',
+      ],
+      next: [
+        'Expand beta to 40 accounts next week',
+        'Publish trust & safety review to board',
+        'Prototype admin controls for tenant policies',
+      ],
+      risks: [
+        'Inference cost 22% above budget at current scale',
+        'Two design-partner escalations pending resolution',
+      ],
+      metrics: [
+        { label: 'Ticket deflection', value: '38%', delta: +9, unit: 'pp' },
+        { label: 'Beta accounts', value: '14', delta: +4 },
+        { label: 'Cost / conversation', value: '$0.31', delta: +22, unit: '%', good: 'down' },
+        { label: 'CSAT', value: '4.6', delta: +0.2 },
+      ],
+    },
+    {
+      id: 'billing-v3', focus: "Usage-based plans live", channel: 'billing-v3', unread: 3, lastActivity: '4h', connectors: [{"type":"linear","label":"BILL","count":18}],
+      name: 'Billing v3',
+      owner: 'Rafael Ortiz',
+      team: 'Platform',
+      updated: 'Apr 17',
+      status: 'green',
+      prevStatus: 'green',
+      featured: false,
+      current: [
+        'Usage-based plans live for 6 tenants',
+        'Dunning workflow automated end-to-end',
+      ],
+      next: ['Migrate remaining 40 tenants', 'Deprecate legacy invoicing cron'],
+      risks: ['Edge case on mid-cycle plan changes'],
+      metrics: [
+        { label: 'Tenants migrated', value: '6 / 46', delta: +6 },
+        { label: 'Failed charges', value: '0.8%', delta: -0.3, unit: 'pp', good: 'down' },
+      ],
+    },
+    {
+      id: 'trust-center', focus: "Auditor availability slipping", channel: 'security-trust', unread: 2, lastActivity: '1d', connectors: [{"type":"doc","label":"SOC2 audit tracker"}],
+      name: 'Trust Center',
+      owner: 'Jules Park',
+      team: 'Security',
+      updated: 'Apr 15',
+      status: 'yellow',
+      prevStatus: 'yellow',
+      featured: false,
+      current: ['SOC2 Type II audit in fieldwork', 'Public status page redesign in review'],
+      next: ['Close remaining 4 audit findings', 'Launch trust.acme.co'],
+      risks: ['Auditor availability slipping timeline by ~10 days'],
+      metrics: [
+        { label: 'Audit findings open', value: '4', delta: -3, good: 'down' },
+        { label: 'Pen-test issues', value: '0 critical', delta: 0 },
+      ],
+    },
+    {
+      id: 'partner-api', focus: "12 design partners live", channel: 'partner-api-ga', unread: 8, lastActivity: '3h', connectors: [{"type":"linear","label":"API","count":22},{"type":"github","label":"acme/partner-sdk"},{"type":"doc","label":"Public docs draft"}],
+      name: 'Partner API GA',
+      owner: 'Hiroshi Tanaka',
+      team: 'Platform',
+      updated: 'Apr 18',
+      status: 'green',
+      prevStatus: 'yellow',
+      featured: false,
+      current: ['12 design partners in private preview', 'SDKs shipped for TS, Python, Go'],
+      next: ['Publish public docs site', 'Announce at summit keynote'],
+      risks: ['Rate-limit policy still under review with Legal'],
+      metrics: [
+        { label: 'Partners live', value: '12', delta: +3 },
+        { label: 'API calls / day', value: '2.1M', delta: +40, unit: '%' },
+      ],
+    },
+    {
+      id: 'workspace-redesign', focus: "Eng bandwidth pulled away", channel: 'workspace-redesign', unread: 5, lastActivity: '2d', connectors: [{"type":"linear","label":"DES","count":41},{"type":"doc","label":"IA research"}],
+      name: 'Workspace Redesign',
+      owner: 'Nadia Ellington',
+      team: 'Design',
+      updated: 'Apr 14',
+      status: 'red',
+      prevStatus: 'red',
+      featured: false,
+      current: ['Phase 1 pattern library in production', 'Research on IA complete'],
+      next: ['Kick off nav restructure', 'Align with Mobile team on shared tokens'],
+      risks: ['Engineering bandwidth pulled into Mobile Launch', 'Scope creep from Sales requests'],
+      metrics: [
+        { label: 'Components shipped', value: '34 / 82', delta: +2 },
+        { label: 'Eng capacity', value: '40%', delta: -20, unit: 'pp', good: 'down' },
+      ],
+    },
+  ];
+  
+  window.EXEC_SUMMARY = {
+    counts: { green: 4, yellow: 2, red: 2 },
+    bullets: [
+      { tone: 'positive', text: 'Platform Migration hit a major milestone — 47 of 52 services now on the new orchestration layer, with P95 latency down 41%.' },
+      { tone: 'positive', text: 'Revenue Dashboard rollout is tracking a full week ahead of plan; Finance and RevOps are fully onboarded.' },
+      { tone: 'negative', text: 'Mobile App Launch slipped from At Risk to Off Track — an Android review and a vendor payments SDK are both blocking.' },
+      { tone: 'negative', text: 'AI Assist Rollout moved to At Risk this week as inference costs ran 22% over budget at current beta scale.' },
+    ],
+  };
+  
+  window.WEEK_LABEL = 'Week of April 14 – 20, 2026';
+  window.PRIOR_WEEKS = [
+    { label: 'Apr 7 – 13, 2026', summary: '3 green · 1 yellow · 0 red' },
+    { label: 'Mar 31 – Apr 6, 2026', summary: '2 green · 2 yellow · 0 red' },
+    { label: 'Mar 24 – 30, 2026', summary: '2 green · 1 yellow · 1 red' },
+  ];
+  
+  
+
+  if (cfg.dataSource === 'json' && cfg.jsonUrl) {
+    window.NORTHLINE_DATA_READY = fetch(cfg.jsonUrl)
+      .then(r => r.json())
+      .then(rows => { window.PROJECTS = rows; })
+      .catch(err => { console.warn('JSON load failed; using inline mock data', err); });
+  } else if (cfg.dataSource === 'sharepoint') {
+    window.NORTHLINE_DATA_READY = Promise.reject(new Error('SharePoint loader not implemented — see README'));
+  } else {
+    window.NORTHLINE_DATA_READY = Promise.resolve();
+  }
+})();

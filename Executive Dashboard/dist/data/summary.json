@@ -1,0 +1,42 @@
+{
+  "summary": {
+    "counts": {
+      "green": 4,
+      "yellow": 2,
+      "red": 2
+    },
+    "bullets": [
+      {
+        "tone": "positive",
+        "text": "Platform Migration hit a major milestone — 47 of 52 services now on the new orchestration layer, with P95 latency down 41%."
+      },
+      {
+        "tone": "positive",
+        "text": "Revenue Dashboard rollout is tracking a full week ahead of plan; Finance and RevOps are fully onboarded."
+      },
+      {
+        "tone": "negative",
+        "text": "Mobile App Launch slipped from At Risk to Off Track — an Android review and a vendor payments SDK are both blocking."
+      },
+      {
+        "tone": "negative",
+        "text": "AI Assist Rollout moved to At Risk this week as inference costs ran 22% over budget at current beta scale."
+      }
+    ]
+  },
+  "week": "Week of April 14 – 20, 2026",
+  "priorWeeks": [
+    {
+      "label": "Apr 7 – 13, 2026",
+      "summary": "3 green · 1 yellow · 0 red"
+    },
+    {
+      "label": "Mar 31 – Apr 6, 2026",
+      "summary": "2 green · 2 yellow · 0 red"
+    },
+    {
+      "label": "Mar 24 – 30, 2026",
+      "summary": "2 green · 1 yellow · 1 red"
+    }
+  ]
+}

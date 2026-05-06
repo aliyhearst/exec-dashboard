@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Automation Roadmap · Northline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAFA; --panel: #FFFFFF; --ink: #0A0A0A; --ink-2: #262626;
+  --muted: #737373; --muted-2: #A3A3A3; --line: #EDEDED; --line-3: #E5E5E5;
+  --green: #16A34A; --green-soft: #F0FDF4; --green-ink: #15803D;
+  --amber: #D97706; --amber-soft: #FFFBEB; --amber-ink: #B45309;
+  --red: #DC2626; --red-soft: #FEF2F2; --red-ink: #B91C1C;
+  --blue: #2563EB; --blue-soft: #EFF6FF; --blue-ink: #1D4ED8;
+  --purple: #7C3AED; --purple-soft: #F5F3FF; --purple-ink: #6D28D9;
+  --teams: #5059C9;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+  font-family: 'Geist', system-ui, sans-serif;
+  font-size: 14.5px; line-height: 1.5; letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+.mono { font-family: 'Geist Mono', monospace; letter-spacing: -0.01em; }
+.serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(250,250,250,0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding: 14px 40px; display: flex; align-items: center; gap: 16px;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.brand-mark {
+  width: 20px; height: 20px; border-radius: 6px; background: #0A0A0A; position: relative;
+}
+.brand-mark::after {
+  content: ''; position: absolute; inset: auto auto 4px 4px; width: 5px; height: 5px;
+  background: #FAFAFA; border-radius: 50%;
+}
+.brand-sep { color: var(--muted-2); font-weight: 300; }
+.brand-sub { color: var(--muted); }
+.top-spacer { flex: 1; }
+.back-link {
+  color: var(--ink-2); text-decoration: none; font-size: 13.5px; font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border: 1px solid var(--line-3); border-radius: 8px;
+  background: var(--panel);
+}
+.back-link:hover { background: #F5F5F5; }
+
+.page { max-width: 1120px; margin: 0 auto; padding: 56px 40px 96px; }
+
+.eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.06em; margin-bottom: 16px;
+}
+h1 {
+  font-size: 40px; font-weight: 500; letter-spacing: -0.032em;
+  line-height: 1.05; margin: 0;
+}
+h1 .serif { font-weight: 400; }
+.subtitle { color: var(--muted); font-size: 15.5px; margin-top: 14px; max-width: 640px; line-height: 1.55; }
+
+.phases {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 56px;
+}
+.phase {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 14px; padding: 22px 22px 20px;
+}
+.phase-num {
+  font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted);
+  letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.phase-num .dot { width: 6px; height: 6px; border-radius: 50%; }
+.phase.now .dot { background: var(--green); }
+.phase.next .dot { background: var(--amber); }
+.phase.future .dot { background: var(--muted-2); }
+.phase h2 { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 6px; }
+.phase p { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; line-height: 1.55; }
+.phase .tag {
+  display: inline-block; font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  padding: 3px 7px; border-radius: 5px; font-weight: 500;
+}
+.phase.now .tag { background: var(--green-soft); color: var(--green-ink); }
+.phase.next .tag { background: var(--amber-soft); color: var(--amber-ink); }
+.phase.future .tag { background: #F5F5F5; color: var(--muted); }
+
+h2.section {
+  font-size: 22px; font-weight: 500; letter-spacing: -0.024em;
+  margin: 72px 0 4px;
+}
+.section-sub { color: var(--muted); margin-bottom: 32px; font-size: 14.5px; }
+
+/* --- Flow diagram --- */
+.flow {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+  padding: 40px 32px;
+  overflow-x: auto;
+}
+.flow-canvas {
+  display: grid;
+  grid-template-columns: 220px 1fr 220px 1fr 220px;
+  align-items: center;
+  gap: 0;
+  min-width: 960px;
+}
+.node {
+  background: var(--panel); border: 1px solid var(--line-3); border-radius: 12px;
+  padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.node .kicker {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  display: flex; align-items: center; gap: 6px;
+}
+.node .kicker .dot { width: 5px; height: 5px; border-radius: 50%; }
+.node h3 { margin: 0; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+.node p { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+.node.user { border-color: #DBEAFE; background: #F8FAFF; }
+.node.user .kicker .dot { background: var(--blue); }
+.node.teams { border-color: #D6D9F0; background: #F8F9FD; }
+.node.teams .kicker .dot { background: var(--teams); }
+.node.parser { border-color: #E5D9FA; background: #F9F7FF; }
+.node.parser .kicker .dot { background: var(--purple); }
+.node.dash { border-color: #D4F4DE; background: #F7FDF9; }
+.node.dash .kicker .dot { background: var(--green); }
+.node.dm { border-color: #FDE9CF; background: #FFFBF4; }
+.node.dm .kicker .dot { background: var(--amber); }
+
+.arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: var(--muted);
+}
+.arrow .line {
+  width: 100%; height: 1px; background: var(--line-3);
+  position: relative;
+}
+.arrow .line::after {
+  content: ''; position: absolute; right: -1px; top: -3px;
+  width: 7px; height: 7px;
+  border-right: 1.5px solid var(--muted-2); border-top: 1.5px solid var(--muted-2);
+  transform: rotate(45deg);
+}
+.arrow .lbl {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.branch {
+  grid-column: 1 / -1;
+  margin-top: 28px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.branch-lane {
+  border: 1px dashed var(--line-3); border-radius: 12px; padding: 18px 20px;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
+}
+.branch-lane .cond {
+  font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.06em; font-weight: 500;
+  padding: 4px 8px; border-radius: 5px;
+}
+.branch-lane.ok .cond { background: var(--green-soft); color: var(--green-ink); }
+.branch-lane.review .cond { background: var(--amber-soft); color: var(--amber-ink); }
+.branch-lane .lbl-inline {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* Message bubble */
+.chat {
+  background: var(--panel); border: 1px solid var(--line-3); border-radius: 12px;
+  padding: 16px 18px;
+}
+.chat-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+  font-size: 12.5px; color: var(--muted);
+}
+.avatar { width: 22px; height: 22px; border-radius: 50%; background: var(--teams); color: white;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; }
+.avatar.bot { background: #0A0A0A; }
+.chat-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+.chat-row .bubble {
+  background: #F5F5F5; border-radius: 10px; padding: 8px 12px; font-size: 13px;
+  color: var(--ink-2); max-width: 85%; line-height: 1.5;
+}
+.chat-row.bot .bubble { background: #0A0A0A; color: #FAFAFA; }
+.chat-row .bubble .mention { color: var(--blue); font-weight: 500; }
+.chat-row .bubble .check { color: #86EFAC; font-weight: 500; }
+.chat-row .bubble a { color: #86EFAC; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Scenario columns */
+.scenarios { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+.scenario {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  padding: 24px;
+}
+.scenario h3 {
+  font-size: 15.5px; font-weight: 500; letter-spacing: -0.015em; margin: 0 0 4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.scenario h3 .confidence {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; padding: 3px 6px;
+  border-radius: 4px; font-weight: 500; margin-left: auto;
+}
+.scenario h3 .confidence.high { background: var(--green-soft); color: var(--green-ink); }
+.scenario h3 .confidence.low { background: var(--amber-soft); color: var(--amber-ink); }
+.scenario p.muted { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+
+/* Benefits grid */
+.benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+.benefit {
+  border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--panel);
+}
+.benefit .num {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 34px;
+  line-height: 1; color: var(--ink); font-weight: 400;
+}
+.benefit .lbl { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.benefit h4 { font-size: 14.5px; font-weight: 500; margin: 12px 0 4px; letter-spacing: -0.01em; }
+.benefit p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
+
+.callout {
+  margin-top: 28px;
+  background: #0A0A0A; color: #FAFAFA; border-radius: 14px;
+  padding: 28px 32px;
+  display: flex; align-items: center; gap: 24px; justify-content: space-between;
+}
+.callout .lead {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 24px;
+  line-height: 1.3; max-width: 540px; letter-spacing: -0.01em;
+}
+.callout .sub { color: #A3A3A3; font-size: 13.5px; margin-top: 8px; font-family: 'Geist', sans-serif; font-style: normal; }
+.callout .btn {
+  background: #FAFAFA; color: #0A0A0A; border: 0; padding: 11px 18px;
+  border-radius: 10px; font-weight: 500; font-size: 14px; cursor: pointer;
+  font-family: inherit; letter-spacing: -0.005em;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+
+@media (max-width: 900px) {
+  .phases { grid-template-columns: 1fr; }
+  .scenarios { grid-template-columns: 1fr; }
+  .benefits { grid-template-columns: 1fr; }
+  .branch { grid-template-columns: 1fr; }
+  h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>Northline</span>
+      <span class="brand-sep">/</span>
+      <span class="brand-sub">Automation Roadmap</span>
+    </div>
+    <div class="top-spacer"></div>
+    <a class="back-link" href="Executive Dashboard.html">← Back to dashboard</a>
+  </div>
+</header>
+
+<main class="page">
+  <div class="eyebrow">ROADMAP — DRAFT v0.3</div>
+  <h1>From weekly forms to <span class="serif">a conversation</span>.</h1>
+  <p class="subtitle">A three-phase plan for reducing the friction of submitting project updates — from one central form, to per-project shareable links, to a Teams bot that captures updates where the work already happens.</p>
+
+  <div class="phases">
+    <div class="phase now">
+      <div class="phase-num"><span class="dot"></span>Phase 1 · Today</div>
+      <h2>Central form + AI parse</h2>
+      <p>One submission form on the dashboard. Paste a plain-English update, AI structures it into project fields with a confidence score.</p>
+      <span class="tag">✓ Shipped</span>
+    </div>
+    <div class="phase next">
+      <div class="phase-num"><span class="dot"></span>Phase 2 · This quarter</div>
+      <h2>Per-project share links</h2>
+      <p>Every project card has a "Share update link" action. Team leads send a pre-filled URL to their contributors — no context switching, no project picker.</p>
+      <span class="tag">In progress</span>
+    </div>
+    <div class="phase future">
+      <div class="phase-num"><span class="dot"></span>Phase 3 · Q3 target</div>
+      <h2>Teams bot</h2>
+      <p>@mention the bot in Teams with a casual update. It parses, posts to the dashboard, and DMs a review link only if confidence is low.</p>
+      <span class="tag">Designing</span>
+    </div>
+  </div>
+
+  <h2 class="section">Phase 3 · Teams bot flow</h2>
+  <p class="section-sub">The fewest clicks we can imagine: mention the bot, get back a ✓. Review only when uncertain.</p>
+
+  <div class="flow">
+    <div class="flow-canvas">
+      <div class="node user">
+        <div class="kicker"><span class="dot"></span>Step 1 · User</div>
+        <h3>Mentions bot in Teams</h3>
+        <p>In any channel or DM, types an update as they would to a teammate.</p>
+      </div>
+      <div class="arrow"><span class="lbl">message</span><div class="line"></div></div>
+      <div class="node teams">
+        <div class="kicker"><span class="dot"></span>Step 2 · Bot</div>
+        <h3>Northline bot receives</h3>
+        <p>Listens on @mention, picks up message text and author identity from Teams Graph.</p>
+      </div>
+      <div class="arrow"><span class="lbl">payload</span><div class="line"></div></div>
+      <div class="node parser">
+        <div class="kicker"><span class="dot"></span>Step 3 · Parser</div>
+        <h3>Claude structures it</h3>
+        <p>Same prompt as Phase 1: match to a known project, extract status, bullets, risks, confidence.</p>
+      </div>
+
+      <div class="branch">
+        <div class="branch-lane ok">
+          <span class="cond">≥ 80% confidence</span>
+          <span class="lbl-inline">→ auto-post</span>
+          <div class="node dash" style="padding:14px 16px">
+            <div class="kicker"><span class="dot"></span>Dashboard</div>
+            <h3>Logged · ✓ in Teams</h3>
+            <p>Update appears under the matched project. Bot replies in thread: "Logged to Mobile App Launch · view"</p>
+          </div>
+        </div>
+        <div class="branch-lane review">
+          <span class="cond">&lt; 80% confidence</span>
+          <span class="lbl-inline">→ DM to review</span>
+          <div class="node dm" style="padding:14px 16px">
+            <div class="kicker"><span class="dot"></span>Review DM</div>
+            <h3>One-tap confirm link</h3>
+            <p>Bot sends user a prefilled submission link. They confirm, edit a field, or pick the right project from a list.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scenarios">
+    <div class="scenario">
+      <h3>Happy path <span class="confidence high">≥ 80%</span></h3>
+      <p class="muted">Clear project reference, clear status. Auto-logged.</p>
+      <div class="chat">
+        <div class="chat-header"><span class="avatar">MC</span><span>Marcus Chen · #project-updates</span></div>
+        <div class="chat-row"><span class="avatar">MC</span>
+          <div class="bubble"><span class="mention">@Northline</span> Mobile launch still off track this week. Android review blocked, payments SDK vendor missed QA. Next: escalate with partner contact, rehearse war room Thursday.</div>
+        </div>
+        <div class="chat-row bot"><span class="avatar bot">N</span>
+          <div class="bubble"><span class="check">✓ Logged</span> to <strong>Mobile App Launch</strong> · status <strong>Off Track</strong> · <a>view on dashboard</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="scenario">
+      <h3>Review path <span class="confidence low">&lt; 80%</span></h3>
+      <p class="muted">Ambiguous project name or missing details. Bot asks before posting.</p>
+      <div class="chat">
+        <div class="chat-header"><span class="avatar">DO</span><span>Dana Osei · DM</span></div>
+        <div class="chat-row"><span class="avatar">DO</span>
+          <div class="bubble"><span class="mention">@Northline</span> Beta rolling well, 14 accounts, deflection up to 38%. Cost still over budget though.</div>
+        </div>
+        <div class="chat-row bot"><span class="avatar bot">N</span>
+          <div class="bubble">Got it — I think this is about <strong>AI Assist Rollout</strong>, but flagging for review. <a>Confirm and edit →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section">Why this matters</h2>
+  <p class="section-sub">Each phase compounds. The cost of submitting an update drops by an order of magnitude.</p>
+
+  <div class="benefits">
+    <div class="benefit">
+      <div class="num">8 min</div>
+      <div class="lbl">Phase 1 · Central form</div>
+      <h4>One form, all projects</h4>
+      <p>Leads navigate to the dashboard, find their project, fill out fields or paste a blurb.</p>
+    </div>
+    <div class="benefit">
+      <div class="num">2 min</div>
+      <div class="lbl">Phase 2 · Share links</div>
+      <h4>Pre-filled, locked</h4>
+      <p>Direct URL per project. No picker, no context switching. Paste and submit.</p>
+    </div>
+    <div class="benefit">
+      <div class="num">15 sec</div>
+      <div class="lbl">Phase 3 · Teams bot</div>
+      <h4>Where the work is</h4>
+      <p>Mention the bot inline. Most updates auto-log. Only ambiguous ones need a tap.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div>
+      <div class="lead">"The best status update is the one that was already being written anyway."</div>
+      <div class="sub">Phase 3 is about capturing signal that already exists in Teams — not adding another ritual.</div>
+    </div>
+    <a class="btn" href="Executive Dashboard.html">View dashboard →</a>
+  </div>
+</main>
+</body>
+</html>
