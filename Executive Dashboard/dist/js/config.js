@@ -5,7 +5,7 @@ window.NORTHLINE_CONFIG = {
   // 'inline'    — read window.PROJECTS from data.js (default, ships with mock data)
   // 'json'      — fetch from a JSON file in the repo (e.g. 'data/projects.json')
   // 'sharepoint'— fetch from a SharePoint List via Microsoft Graph (requires MSAL setup)
-  dataSource: 'inline',
+  dataSource: 'json',
   jsonUrl: 'data/projects.json',
   sharePoint: {
     // tenantId: '...',
