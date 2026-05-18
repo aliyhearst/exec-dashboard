@@ -338,11 +338,56 @@ const [formOpen, setFormOpen] = useState(false);
 const [lockedProjectId, setLockedProjectId] = useState(null);
 const [editProject, setEditProject] = useState(null);
 const [extras, setExtras] = useState([]);
+const [spProjects, setSpProjects] = useState(null); // null = not loaded yet
+const [spLoading, setSpLoading] = useState(true);
 const [week, setWeek] = useState(window.WEEK_LABEL);
 const [weekIdx, setWeekIdx] = useState(0);
 const [toast, setToast] = useState('');
 const [query, setQuery] = useState('');
 const [starred, setStarred] = useState(new Set(['platform-migration', 'mobile-launch']));
+
+// Load projects from SharePoint (live source of truth)
+const loadProjectsFromSharePoint = async () => {
+if (!_msalInstance || !_spCfg.siteUrl) { setSpLoading(false); return; }
+try {
+  const token = await getSpToken();
+  if (!token) { setSpLoading(false); return; }
+  const url = `${_spCfg.siteUrl}/_api/web/lists/getbytitle('${_spCfg.listName}')/items?$select=Id,Title,ProjectId,Status,Owner,Team,SubmittedBy,CurrentBullets,NextBullets,Risks,Modified&$orderby=Modified%20desc&$top=500`;
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json;odata=nometadata' } });
+  if (!res.ok) throw new Error(`SP fetch ${res.status}`);
+  const data = await res.json();
+  const seen = new Set();
+  const items = (data.value || []).filter(item => {
+    const pid = item.ProjectId;
+    if (!pid || seen.has(pid)) return false;
+    seen.add(pid); return true;
+  }).map(item => {
+    const base = window.PROJECTS.find(p => p.id === item.ProjectId) || {};
+    return {
+      ...base,
+      id: item.ProjectId,
+      name: item.Title,
+      owner: item.Owner || base.owner || '',
+      team: item.Team || base.team || '',
+      status: (item.Status?.Value || item.Status || 'green').toLowerCase(),
+      current: (item.CurrentBullets || '').split('\n').filter(Boolean),
+      next: (item.NextBullets || '').split('\n').filter(Boolean),
+      risks: (item.Risks || '').split('\n').filter(Boolean),
+      updated: new Date(item.Modified).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      _spId: item.Id,
+      metrics: base.metrics || [],
+      connectors: base.connectors || [],
+    };
+  });
+  setSpProjects(items);
+  setExtras([]); // SP is now source of truth — clear optimistic extras
+} catch (err) {
+  console.warn('SP load failed, using static data:', err);
+  setSpProjects(null);
+} finally { setSpLoading(false); }
+};
+
+useEffect(() => { loadProjectsFromSharePoint(); }, []);
 
 // Handle URL params: #project=<id>&submit=1 (hash-based so preview auth stays intact)
 useEffect(() => {
@@ -372,10 +417,19 @@ return () => clearTimeout(t);
 }, [toast]);
 
 const allProjects = useMemo(() => {
+// Optimistic extras always take priority (they represent in-flight writes)
 const extrasIds = new Set(extras.map(e => e.id));
+if (spProjects !== null) {
+  // SP loaded: extras > SP data > static projects not yet in SP
+  const spIds = new Set(spProjects.map(p => p.id));
+  const staticFallback = window.PROJECTS.filter(p => !spIds.has(p.id) && !extrasIds.has(p.id));
+  const spFiltered = spProjects.filter(p => !extrasIds.has(p.id));
+  return [...extras, ...spFiltered, ...staticFallback];
+}
+// SP not loaded: extras > static projects.json
 const baseProjects = window.PROJECTS.filter(p => !extrasIds.has(p.id));
 return [...extras, ...baseProjects];
-}, [extras]);
+}, [extras, spProjects]);
 
 const filtered = useMemo(() => {
 let list = allProjects.filter(p => projectMatches(p, query));
@@ -422,6 +476,7 @@ setFormOpen(false);
 setEditProject(null);
 setLockedProjectId(null);
 setToast(`"${project.name}" ${isEdit ? 'updated' : 'added'} ✓`);
+loadProjectsFromSharePoint(); // Refresh from SP — becomes source of truth
 } catch(err) {
 console.error('SharePoint write failed, saving locally:', err);
 // Graceful fallback — still update local state
