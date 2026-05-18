@@ -371,7 +371,11 @@ const t = setTimeout(() => setToast(''), 2600);
 return () => clearTimeout(t);
 }, [toast]);
 
-const allProjects = useMemo(() => [...extras, ...window.PROJECTS], [extras]);
+const allProjects = useMemo(() => {
+const extrasIds = new Set(extras.map(e => e.id));
+const baseProjects = window.PROJECTS.filter(p => !extrasIds.has(p.id));
+return [...extras, ...baseProjects];
+}, [extras]);
 
 const filtered = useMemo(() => {
 let list = allProjects.filter(p => projectMatches(p, query));
