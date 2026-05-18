@@ -2,16 +2,16 @@
 // Edit these values to point at your real data sources / AI endpoints.
 window.NORTHLINE_CONFIG = {
   // ---- Data source -----------------------------------------------------
-  // 'inline'    — read window.PROJECTS from data.js (default, ships with mock data)
-  // 'json'      — fetch from a JSON file in the repo (e.g. 'data/projects.json')
+  // 'inline' — read window.PROJECTS from data.js (default, ships with mock data)
+  // 'json' — fetch from a JSON file in the repo (e.g. 'data/projects.json')
   // 'sharepoint'— fetch from a SharePoint List via Microsoft Graph (requires MSAL setup)
   dataSource: 'json',
   jsonUrl: 'data/projects.json',
   sharePoint: {
-    // tenantId: '...',
-    // clientId: '...',
-    // siteId: '...',
-    // listId: '...',
+    tenantId: 'a84894e7-87c5-40e3-9783-320d0334b3cc',
+    clientId: 'ec372145-bf8a-45ad-8eb4-b9994acbe6fa',
+    siteUrl: 'https://hearstpm.sharepoint.com/sites/GenAIBuildTeam',
+    listName: 'ProjectUpdates',
   },
 
   // ---- AI parsing endpoint --------------------------------------------
