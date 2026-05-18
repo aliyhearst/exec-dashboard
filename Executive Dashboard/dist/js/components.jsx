@@ -446,6 +446,7 @@ setForm({...form, matchedProjectId: e.target.value, name: matched?.name || form.
 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
 </select>
 ) : (
+<>
 <select value={form.matchedProjectId || ''} onChange={(e) => {
 const matched = projects.find(p => p.id === e.target.value);
 setForm({...form, matchedProjectId: e.target.value, name: matched?.name || '', owner: matched?.owner || form.owner, team: matched?.team || form.team});
@@ -453,6 +454,10 @@ setForm({...form, matchedProjectId: e.target.value, name: matched?.name || '', o
 <option value="">— New project —</option>
 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
 </select>
+{!form.matchedProjectId && (
+<input style={{marginTop:8}} value={form.name} onChange={update('name')} placeholder="Enter new project name" required />
+)}
+</>
 )}
 </div>
 <div className="form-field">
