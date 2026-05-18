@@ -446,7 +446,13 @@ setForm({...form, matchedProjectId: e.target.value, name: matched?.name || form.
 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
 </select>
 ) : (
-<input value={form.name} onChange={update('name')} placeholder="e.g. Partner API GA" required />
+<select value={form.matchedProjectId || ''} onChange={(e) => {
+const matched = projects.find(p => p.id === e.target.value);
+setForm({...form, matchedProjectId: e.target.value, name: matched?.name || '', owner: matched?.owner || form.owner, team: matched?.team || form.team});
+}}>
+<option value="">— New project —</option>
+{projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
+</select>
 )}
 </div>
 <div className="form-field">
