@@ -27,7 +27,7 @@ async function getSpToken() {
   if (!_msalInstance) return null;
   const accounts = _msalInstance.getAllAccounts();
   const req = {
-    scopes: [`${_spCfg.siteUrl}/.default`],
+    scopes: ['https://hearstpm.sharepoint.com/AllSites.Write'],
     account: accounts[0]
   };
   try {
@@ -35,7 +35,7 @@ async function getSpToken() {
     return res.accessToken;
   } catch {
     try {
-      const res = await _msalInstance.acquireTokenPopup({ scopes: [`${_spCfg.siteUrl}/.default`] });
+      const res = await _msalInstance.acquireTokenPopup({ scopes: ['https://hearstpm.sharepoint.com/AllSites.Write'] });
       return res.accessToken;
     } catch(e) {
       console.warn('Could not get SP token:', e);
